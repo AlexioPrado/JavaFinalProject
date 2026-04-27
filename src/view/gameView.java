@@ -1,5 +1,3 @@
-import java.util.ArrayList;
-
 /**
  * Marcus Alexio Prado
  * Course: Adv Java
@@ -8,7 +6,9 @@ import java.util.ArrayList;
  * 
  */
 
-public class gameView{
+import java.util.ArrayList;
+
+public class gameView {
 
     public void showMessage(String message){
             System.out.println(message);
