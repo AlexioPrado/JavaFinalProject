@@ -9,9 +9,8 @@
 
 public class Main {
     public static void main(String[] args){
-        game game = new game();
         gameView view = new gameView();
-        gameController controller = new gameController(model, view);
+        gameController controller = new gameController(view);
         controller.start();
     }
 }

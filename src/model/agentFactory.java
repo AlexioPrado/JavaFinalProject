@@ -8,7 +8,7 @@
 
 public class agentFactory {
 
-    public static character chooseCharacter(Int type){
+    public static agent chooseCharacter(int type){
         switch (type) {
             case 1:
                 return new agentAria();
@@ -16,9 +16,6 @@ public class agentFactory {
                 return new agentNangong();
             case 3: 
                 return new agentSunna();
-            default:
-                return agent();
-                //CAUSE ERROR HERE
         }
     }
 }

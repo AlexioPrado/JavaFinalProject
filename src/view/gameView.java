@@ -7,6 +7,7 @@
  */
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class gameView {
 
@@ -14,41 +15,43 @@ public class gameView {
             System.out.println(message);
         }
 
-    public void showChoices(String message, ArrayList<E> options){
+    public void showChoices(String message, ArrayList<String> options){
         System.out.println(message);
-        for (i = 1; i < options.size(); i++){
-            System.out.println(i + ". " + options.get(i));
+        for (int i = 0; i < options.size(); i++){
+            System.out.println((i+1) + ". " + options.get(i));
         }
     }
 
     public void showCharacterKit(agent character){
         System.out.println("+--------------------------------------");
-        System.out.println("| %-36s |%n", "Name: " + character.name);
+        System.out.println("| Name: " + character.name);
         System.out.println("|--------------------------------------");
         System.out.println("| Normal Attack:                       ");
-        System.out.println("|",character.normalAttack);
+        System.out.println("| " + character.getNormalAttackInfo());
+        System.out.println("|--------------------------------------");
         System.out.println("| Skill:                               ");
-        System.out.println("|",character.skill);
+        System.out.println("| " + character.getSkillAttackInfo());
+        System.out.println("|--------------------------------------");
         System.out.println("| Ultimate:                            ");
-        System.out.println("|",character.ultimate);
+        System.out.println("| " + character.getUltimateAttackInfo());
         System.out.println("+--------------------------------------");
     }
 
     public void showCharacterQuickStats(agent character){
-        System.out.println("Name:", character.name);
-        System.out.println("HP:", character.health, "/", character.maxHealth);
-        System.out.println("Energy:", character.energy, "/", character.maxEnergy);
+        System.out.println("Name: " + character.name);
+        System.out.println("HP: " + character.health + "/" + character.maxHealth);
+        System.out.println("Energy: " + character.energy + "/" + character.maxEnergy);
         System.out.println("Buffs:");
-        for (String buffs : character.getBuffs()){
-            System.out.println(buffs);
-        }
+        //for (String buffs : character.getBuffs()){
+        //    System.out.println(buffs);
+        //}
     }
 
-    public void showEnemyQuickStats(enemy enemy){
-        System.out.println("Name:", enemy.name);
-        System.out.println("HP:", enemy.health, "/", enemy.maxHealth);
-        System.out.println("Energy:", enemy.energy, "/", enemy.maxEnergy);
-    }
+    //public void showEnemyQuickStats(Enemy enemy){
+    //    System.out.println("Name:", enemy.name);
+    //    System.out.println("HP:", enemy.health, "/", enemy.maxHealth);
+    //    System.out.println("Energy:", enemy.energy, "/", enemy.maxEnergy);
+    //}
 
     public void showMenu(){
         System.out.println("+--------------------------------------+");
@@ -61,16 +64,18 @@ public class gameView {
         System.out.println("| Enter the Mii Hollow and kill all    |");
         System.out.println("| ethereals in your path.              |");
         System.out.println("+--------------------------------------+");
-
-        showChoices("You have started your mission.\nSelect your next Action: ", new ArrayList<E>(List.of("1. Select your agent exploration team", "2. Examine agent combat abilities (How agent's work)", "3. Hollow Exploration Combat Rules")));
+        System.out.println();
+        showChoices("You have started your mission.", new ArrayList<>(Arrays.asList("Select your agent exploration team", "Examine agent combat abilities (How agent's work)", "Hollow Exploration Combat Rules")));
+        System.out.println();
+        showMessage("Select your next Action: ");
     }
 
     public void showPlayerTurn(agent character){
-        System.out.println("Active Character:", character.name);
+        System.out.println("Active Character: " + character.name);
         System.out.println("Select your next Action:");
-        System.out.println("1. Normal Attack:", character.naName);
-        System.out.println("2. Skill:", character.skName);
-        System.out.println("3. Ultimate:", character.ultName);
+        System.out.println("1. Normal Attack: " + character.naName);
+        System.out.println("2. Skill: " + character.skName);
+        System.out.println("3. Ultimate: " + character.ultName);
         System.out.println("4. Switch Character");
         System.out.println("5. Examine Agent Capabilities");
         System.out.println("6. Examine Enemy Capabilities");

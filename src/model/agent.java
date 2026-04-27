@@ -8,34 +8,33 @@
 
 public abstract class agent {
     protected String name;
-    protected Int maxHealth;
-    protected Int health;
-    protected Int maxEnergy;
-    protected Int energy;
+    protected int maxHealth;
+    protected int health;
+    protected int maxEnergy;
+    protected int energy;
     protected String naName;
     protected String skName;
     protected String ultName;
-    protected Int naDmg;
-    protected Int skDmg;
-    protected Int ultDmg;
+    protected int naDmg;
+    protected int skDmg;
+    protected int ultDmg;
     protected boolean partnerBuff;
     protected int partnerBuffDmg;
     protected int partnerBuffDuration;
     protected int partnerBuffMaxDuration;
 
-    protected gameController  agentControl;
+    protected gameController agentControl;
 
     public boolean isAlive() {
-        return hp > 0;
+        return health > 0;
     }
 
     public boolean getPartnerStatus(){
-        agentControl.
+        return true;
     }
 
-    public String getPartnerInfo(String partnerVariables) {
-
-        return 
+    public int getPartnerInfo(String partnerVariables) {
+        return 1;
     }
 
     public void gainEnergy(){
@@ -49,39 +48,39 @@ public abstract class agent {
         energy = 0;
     }
 
-    public void takeDamage(Int dmg){
+    public void takeDamage(int dmg){
         health -= dmg;
     }
 
-    public string getName(){
+    public String getName(){
         return name;
     }
 
-    public Int getHealth(){
+    public int getHealth(){
         return health;
     }
 
-    public Int getMaxHealth(){
+    public int getMaxHealth(){
         return maxHealth;
     }
 
-    public Int getEnergy(){
+    public int getEnergy(){
         return energy;
     }
 
-    public Int getMaxEnergy(){
+    public int getMaxEnergy(){
         return maxEnergy;
     }
 
-    public string getNormalAttackName(){
+    public String getNormalAttackName(){
         return naName;
     }
 
-    public string getSkillkName(){
+    public String getSkillkName(){
         return skName;
     }
 
-    public string getUltName(){
+    public String getUltName(){
         return ultName;
     }
 
@@ -101,13 +100,13 @@ public abstract class agent {
         return partnerBuffMaxDuration;
     }
 
-    public abstract string getNormalAttackInfo();
-    public abstract string getSkillAttackInfo();
-    public abstract string getUltimateAttackInfo();
+    public abstract String getNormalAttackInfo();
+    public abstract String getSkillAttackInfo();
+    public abstract String getUltimateAttackInfo();
 
-    public abstract void normalAttack(Enemy enemy, agent Partner);
-    public abstract void skillAttack(Enemy enemy, agent Partner);
-    public abstract void ultimateAttack(Enemy enemy, agent Partner);
+    //public abstract void normalAttack(Enemy enemy);
+    //public abstract void skillAttack(Enemy enemy);
+    //public abstract void ultimateAttack(Enemy enemy);
     
 
     //CREATE DMG STUN INCREASE METHOD
