@@ -2,7 +2,7 @@
  * Marcus Alexio Prado
  * Course: JAdv Java
  * Date: 4/23/26
- * Last Modified: 
+ * Last Modified: 4/27/26
  * 
  * 
  */
@@ -11,7 +11,9 @@ import java.util.*;
 public class gameController {
     private gameView view;
     private Scanner scanner;
-
+    protected agent partner1;
+    protected agent partner2;
+    protected ArrayList<agent> teamList;
     //private boolean running = true;
 
     public gameController(gameView view){
@@ -63,7 +65,6 @@ public class gameController {
                 view.showCharacterKit(new agentSunna());
                 break;
         }
-
         
         view.showChoices("You read thoroughly about the agent.", new ArrayList<>(Arrays.asList("Examine another agent.", "Go back to begin exploration.")));
 
@@ -78,8 +79,59 @@ public class gameController {
     }
 
     public void selectExploration(){
+        ArrayList<String> agentList = new ArrayList<>(List.of("Aria","Nangong","Sunna"));
+
         clearTerminal();
-        System.out.println("explore");
+        view.showChoices("It\'s time to recruit your agents.\nSelect your 1st agent below.", agentList);
+        switch(scanner.next()){
+            case "1":
+                partner1 = new agentAria();
+                agentList.remove("Aria");
+                break;
+            case "2":
+                partner1 = new agentNangong();
+                agentList.remove("Nangong");
+                break;
+            case "3":
+                partner1 = new agentSunna();
+                agentList.remove("Sunna");
+                break;
+        }
+        teamList.add(partner1);
+
+        clearTerminal();
+        view.showChoices("Select your 2nd agent below.", agentList);
+        switch(scanner.next()){
+            case "1":
+                switch(agentList.get(0)){
+                    case "Aria":
+                        partner2 = new agentAria();
+                        break;
+                    case "Nangong":
+                        partner2 = new agentNangong();
+                        break;
+                    case "Sunna":
+                        partner2 = new agentSunna();
+                        break;
+                }
+            case "2":
+                switch(agentList.get(1)){
+                    case "Aria":
+                        partner2 = new agentAria();
+                        break;
+                    case "Nangong":
+                        partner2 = new agentNangong();
+                        break;
+                    case "Sunna":
+                        partner2 = new agentSunna();
+                        break;
+                }
+        }
+        teamList.add(partner2);
+
+        clearTerminal();
+
+
     }
 
    //public agent getPartnerInfo(String name){
