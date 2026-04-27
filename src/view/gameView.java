@@ -38,7 +38,7 @@ public class gameView {
         System.out.println("Name:", character.name);
         System.out.println("HP:", character.health, "/", character.maxHealth);
         System.out.println("Energy:", character.energy, "/", character.maxEnergy);
-        System.out.println("Buffs:")
+        System.out.println("Buffs:");
         for (String buffs : character.getBuffs()){
             System.out.println(buffs);
         }

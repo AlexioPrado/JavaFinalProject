@@ -26,6 +26,20 @@ public class gameController {
         
     }
 
+    public int partnerInfo(String partnerVariable, String partner){
+        
+        switch (partner){
+            case "A":
+                agent placeholder = partnerA;
+            case "B":
+                agent 
+        }
+        switch (partnerVariable){
+            case "maxDuration":
+                return 
+        }
+    }
+
 
 }
 

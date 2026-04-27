@@ -18,9 +18,24 @@ public abstract class agent {
     protected Int naDmg;
     protected Int skDmg;
     protected Int ultDmg;
+    protected boolean partnerBuff;
+    protected int partnerBuffDmg;
+    protected int partnerBuffDuration;
+    protected int partnerBuffMaxDuration;
+
+    protected gameController  agentControl;
 
     public boolean isAlive() {
         return hp > 0;
+    }
+
+    public boolean getPartnerStatus(){
+        agentControl.
+    }
+
+    public String getPartnerInfo(String partnerVariables) {
+
+        return 
     }
 
     public void gainEnergy(){
@@ -70,13 +85,29 @@ public abstract class agent {
         return ultName;
     }
 
+    public boolean getPartnerBuff(){
+        return partnerBuff;
+    }
+
+    public int getPartnerBuffDmg(){
+        return partnerBuffDmg;
+    }
+
+    public int getPartnerBuffDuration(){
+        return partnerBuffDuration;
+    }
+
+    public int getPartnerBuffMaxDuration(){
+        return partnerBuffMaxDuration;
+    }
+
     public abstract string getNormalAttackInfo();
     public abstract string getSkillAttackInfo();
     public abstract string getUltimateAttackInfo();
 
-    public abstract void normalAttack(Enemy enemy);
-    public abstract void skillAttack(Enemy enemy);
-    public abstract void ultimateAttack(Enemy enemy);
+    public abstract void normalAttack(Enemy enemy, agent Partner);
+    public abstract void skillAttack(Enemy enemy, agent Partner);
+    public abstract void ultimateAttack(Enemy enemy, agent Partner);
     
 
     //CREATE DMG STUN INCREASE METHOD
