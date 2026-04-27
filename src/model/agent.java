@@ -2,7 +2,7 @@
  * Marcus Alexio Prado 
  * Course: Adv Java
  * Date: 4/24/26
- * Last Modified: 4/25/26
+ * Last Modified: 4/27/26
  * 
  */
 
@@ -36,6 +36,26 @@ public abstract class agent {
 
     public void takeDamage(Int dmg){
         health -= dmg;
+    }
+
+    public string getName(){
+        return name;
+    }
+
+    public Int getHealth(){
+        return health;
+    }
+
+    public Int getMaxHealth(){
+        return maxHealth;
+    }
+
+    public Int getEnergy(){
+        return energy;
+    }
+
+    public Int getMaxEnergy(){
+        return maxEnergy;
     }
 
     public string getNormalAttackName(){
