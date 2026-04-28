@@ -21,4 +21,23 @@ public class agentNangong extends agent{
         this.skDmg = 3;
         this.ultDmg = 3;
     }
+
+     @Override
+    public String getNormalAttackInfo(){       
+        String naInfo = "Nangong slams her spiked mace \n| toward the enemy, dealing 2 dmg.";
+        return naInfo;
+    }
+
+    @Override
+    public String getSkillAttackInfo(){
+        String skInfo = "Nangong charges toward the enemy,\n| dealing 3 dmg. The enemy becomes \n| stunned for 2 turns. If enemy\n| already stunned, stun duration\n| does not increase.";
+        return skInfo;
+    }
+    
+    @Override
+    public String getUltimateAttackInfo(){
+        String ultInfo = "Nangong spins her spiked maces in \n| the sky, dealing 3 dmg. The enemy\n| becomes stunned for 3 turns. If\n| enemy already stunned, stun duration\n| does not increase.";
+        return ultInfo;
+    }
+    
 }

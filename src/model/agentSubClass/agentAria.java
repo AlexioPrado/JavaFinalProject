@@ -30,7 +30,7 @@ public class agentAria extends agent{
 
     @Override
     public String getNormalAttackInfo(){
-        String naInfo = "Aria takes a leap and plunges down\n| toward the enemy, dealing 3 dmg.\n| If the enemy is  stunned, deal an\n| additonal 3 dmg.";
+        String naInfo = "Aria takes a leap and plunges down\n| toward the enemy, dealing 3 dmg.\n| If the enemy is stunned, deal an\n| additonal 3 dmg.";
         return naInfo;
     }
 

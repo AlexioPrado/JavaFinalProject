@@ -41,7 +41,7 @@ public class gameController {
         clearTerminal();
         view.showCombatRules();
         view.showMessage("You read the combat rules of the Mii Hollow.");
-        view.showMessage("Enter to go back:");
+        view.showMessage("Enter 'go' to go back:");
         scanner.next();
         start();
     }
@@ -86,7 +86,9 @@ public class gameController {
         switch(scanner.next()){
             case "1":
                 partner1 = new agentAria();
+                System.out.println("got here");
                 agentList.remove("Aria");
+                System.out.println("got here 2");
                 break;
             case "2":
                 partner1 = new agentNangong();
@@ -97,7 +99,9 @@ public class gameController {
                 agentList.remove("Sunna");
                 break;
         }
+
         teamList.add(partner1);
+        System.out.println("got here 3");
 
         clearTerminal();
         view.showChoices("Select your 2nd agent below.", agentList);

@@ -12,10 +12,13 @@ public class agentFactory {
         switch (type) {
             case 1:
                 return new agentAria();
+                break;
             case 2: 
                 return new agentNangong();
+                break;
             case 3: 
                 return new agentSunna();
+                break;
         }
     }
 }
