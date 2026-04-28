@@ -9,6 +9,8 @@
 import java.util.*;
 
 public class gameController {
+    private enemyFactory enemyCreator;
+    private agentFactory agentCreator;
     private gameView view;
     private Scanner scanner;
     protected agent partner1;
@@ -85,17 +87,17 @@ public class gameController {
         view.showChoices("It\'s time to recruit your agents.\nSelect your 1st agent below.", agentList);
         switch(scanner.next()){
             case "1":
-                partner1 = new agentAria();
+                partner1 = agentCreator.chooseCharacter(1);
                 System.out.println("got here");
                 agentList.remove("Aria");
                 System.out.println("got here 2");
                 break;
             case "2":
-                partner1 = new agentNangong();
+                partner1 = agentCreator.chooseCharacter(2);
                 agentList.remove("Nangong");
                 break;
             case "3":
-                partner1 = new agentSunna();
+                partner1 = agentCreator.chooseCharacter(3);
                 agentList.remove("Sunna");
                 break;
         }
@@ -148,6 +150,23 @@ public class gameController {
    //            return sunna;
    //    }
    //}
+
+    public void dealDamage(int dmg, String dmgDealtTo){
+        if (dmg == -1){
+            //USE TO INDICATE ENEMY ATTACK WAS BLOCKED DUE TO STUN
+            break;
+        }
+
+        switch(dmgDealtTo){
+            case "agent":
+                // DEAL DMG TO THE ACTIVE AGENT
+                break;
+            case "enemy":
+                //DEAL DMG TO THE ENEMY
+                break;
+        }
+
+    }
 
     public static void clearTerminal() {
         try {

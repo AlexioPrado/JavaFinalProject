@@ -24,6 +24,19 @@ public abstract class enemy {
         health -= dmg;
     }
 
+    public void heal(int heal){
+        health += heal;
+    }
+
+    public boolean isStun(){
+        return isStun;
+    }
+
+    public void setStun(int duration){
+        isStun = !isStun;
+        stunDuration = duration;
+    }
+
     public String getName(){
         return name;
     }

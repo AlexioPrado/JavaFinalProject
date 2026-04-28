@@ -8,7 +8,7 @@
 
 public class agentFactory {
 
-    public static agent chooseCharacter(int type){
+    public agent chooseCharacter(int type){
         switch (type) {
             case 1:
                 return new agentAria();
