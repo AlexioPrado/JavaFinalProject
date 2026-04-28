@@ -7,27 +7,23 @@
 */
 
 public class enemyFactory {
-
+    private static enemy placeholder;
     public static enemy chooseCharacter(int type){
-        switch (type) {
+        switch(type) {
             case 1:
-                return new enemyChiikawa();
-                break;
+                return placeholder = new enemyChiikawa();
             case 2: 
-                return new enemyHachiware();
-                break;
+                return placeholder = new enemyHachiware();
             case 3: 
-                return new enemyUsagi();
-                break;
+                return placeholder = new enemyUsagi();
             case 4:
-                return new enemyMcCuen();
-                break;
+                return placeholder = new enemyMcCuen();
             case 5:
-                return new enemyKeller();
-                break;
+                return placeholder = new enemyKeller();
             case 6:
-                return new enemyGardner();
-                break;
+                return placeholder = new enemyGardner();
+            default:
+                return placeholder;
         }
     }
 }

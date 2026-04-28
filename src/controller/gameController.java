@@ -2,11 +2,12 @@
  * Marcus Alexio Prado
  * Course: JAdv Java
  * Date: 4/23/26
- * Last Modified: 4/27/26
+ * Last Modified: 4/28/26
  * 
  * 
  */
 import java.util.*;
+import enemyFactory;
 
 public class gameController {
     private enemyFactory enemyCreator;
@@ -165,7 +166,10 @@ public class gameController {
                 //DEAL DMG TO THE ENEMY
                 break;
         }
+    }
 
+    public boolean isEnemyStun(){
+        //take enemy object and return isStun method. 
     }
 
     public static void clearTerminal() {

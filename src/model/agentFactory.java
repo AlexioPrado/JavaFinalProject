@@ -7,18 +7,17 @@
 */
 
 public class agentFactory {
-
+    private static agent placeholder;
     public agent chooseCharacter(int type){
         switch (type) {
             case 1:
-                return new agentAria();
-                break;
+                return placeholder = new agentAria();
             case 2: 
-                return new agentNangong();
-                break;
+                return placeholder = new agentNangong();
             case 3: 
-                return new agentSunna();
-                break;
+                return placeholder = new agentSunna();
+            default:
+                return placeholder;
         }
     }
 }

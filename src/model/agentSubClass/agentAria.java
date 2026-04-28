@@ -46,50 +46,48 @@ public class agentAria extends agent{
         return ultInfo;
     }
 
-    //@Override
-    //public void normalAttack(Enemy enemy){
-    //    int totalAttack = naDmg;
-    //    if (enemy.isStun()){
-    //        totalAttack += 3;
-    //    }
-    //    if (naBuffActive && naBuffDuration >= 1){
-    //        totalAttack += 3;
-    //        naBuffDuration -= 1;
-    //    }
-    //    if (naBuffDuration == 0) {
-    //        naBuffActive = !naBuffActive;
-    //        naBuffDuration = 2;
-    //    }
-//
-    //    enemy.takeDamage(totalAttack);
+    @Override
+    public void normalAttack(){
+        int totalAttack = naDmg;
+        if (agentControl.isEnemyStun()){
+            totalAttack += 3;
+        }
+        if (naBuffActive && naBuffDuration >= 1){
+            totalAttack += 3;
+            naBuffDuration -= 1;
+        } else if (naBuffDuration == 0) {
+            naBuffActive = !naBuffActive;
+            naBuffDuration = 2;
+        }
+
+        agentControl.dealDamage(totalAttack);
+      
+        gainEnergy();
+    }
+    
+    @Override
+    public void skillAttack(){
+        int totalAttack = skDmg;
+        if (agentControl.isEnemyStun()){
+            totalAttack += 1;
+        }
+
+        agentControl.dealDamage(totalAttack);
+
+        gainEnergy();
+        //partner.gainEnergy();
+    }
+    
+    @Override
+    public void ultimateAttack(){
+        int totalAttack = ultDmg;
+        if (agentControl.isEnemyStun()){
+            totalAttack += 1;
+        }
+    
+        agentControl.dealDamage(totalAttack);
         
-    //    gainEnergy();
-    //}
-    
-    //@Override
-    //public void skillAttack(Enemy enemy){
-    //    int totalAttack = skDmg;
-    //    if (enemy.isStun()){
-    //        totalAttack += 1;
-    //    }
-//
-    //    enemy.takeDamage(totalAttack);
-//
-    //    gainEnergy();
-    //    //partner.gainEnergy();
-    //}
-    
-    //@Override
-    //public void ultimateAttack(Enemy enemy){
-    //    int totalAttack = ultDmg;
-    //    
-    //    if (enemy.isStun()){
-    //        totalAttack += 1;
-    //    }
-    //
-    //    enemy.takeDamage(totalAttack);
-    //    
-    //    useEnergy();
-    //    naBuffActive = !naBuffActive;
-    //}
+        useEnergy();
+        naBuffActive = !naBuffActive;
+    }
 }
