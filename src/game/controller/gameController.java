@@ -29,7 +29,7 @@ public class gameController {
     public agent offCharacter;
     public ArrayList<agent> teamList = new ArrayList<agent>();
     public int battleCounter = 0;
-    //private boolean running = true;
+    public boolean running = true;
 
     public gameController(gameView view){
         this.view = view;
@@ -186,6 +186,7 @@ public class gameController {
         while (enemy.isAlive()){
             view.showMessage("\n--------------------------------------------");
             playerTurn();
+            if (!running) return;
             if (enemy.isAlive()){
                 enemyTurn();
             }
@@ -269,6 +270,7 @@ public class gameController {
                 start();
                 break;
             case 2:
+                running = false;
                 break;
         }
     }
@@ -370,6 +372,7 @@ public class gameController {
     }
 
     public void resetGame(){
+        running = true;
         enemy = null;
         partner1 = null;
         partner2 = null;
