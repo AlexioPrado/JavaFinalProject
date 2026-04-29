@@ -10,7 +10,7 @@ package game.model;
 import game.model.enemySubClass.*;
 
 public class enemyFactory {
-    public static enemy chooseCharacter(int type){
+    public enemy chooseEnemy(int type){
         switch(type) {
             case 1:
                 return new enemyChiikawa();

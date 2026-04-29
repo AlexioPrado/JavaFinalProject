@@ -13,7 +13,6 @@ import game.model.agentSubClass.agentAria;
 import game.model.agentSubClass.agentNangong;
 import game.model.agentSubClass.agentSunna;
 import game.model.enemySubClass.*;
-
 import java.util.*;
 
 
@@ -22,6 +21,8 @@ public class gameController {
     public agentFactory agentCreator = new agentFactory();
     public gameView view;
     public Scanner scanner;
+    public Random randomEnemy = new Random();
+    public enemy enemy;
     public agent partner1;
     public agent partner2;
     public agent activeCharacter;
@@ -102,21 +103,14 @@ public class gameController {
     }
 
     public void selectExploration(){
+        int choice;
         ArrayList<String> agentList = new ArrayList<>(List.of("Aria","Nangong","Sunna"));
 
         clearTerminal();
         view.showChoices("It\'s time to recruit your agents.\nSelect your 1st agent below.", agentList);
         view.showMessage("Select your next action:");
 
-        int choice = -1;
-        while (choice < 1 || choice > agentList.size()) {
-            if (scanner.hasNextInt()) {
-                choice = scanner.nextInt();
-            } else {
-                scanner.next(); 
-                view.showMessage("Invalid input. Please try again.");
-        }
-
+        choice = getChoice(1, 3);
         partner1 = agentCreator.chooseCharacter(choice);
         agentList.remove(agentList.get(choice - 1));
         teamList.add(partner1);
@@ -127,33 +121,81 @@ public class gameController {
         view.showChoices("Select your 2nd agent below.", agentList);
         view.showMessage("Select your next action:");
 
-        choice = -1;
-        while (choice < 1 || choice > agentList.size()) {
+        choice = getChoice(1, agentList.size());
+        partner2 = agentCreator.chooseCharacter(choice);
+        teamList.add(partner2);
+
+        activeCharacter = teamList.get(0);
+
+        teamConfirmation();
+    }
+
+    public void teamConfirmation(){
+        int choice;
+        clearTerminal();
+        view.showMessage("Selected team: " + teamList.get(0).name + " | " + teamList.get(1).name);
+        view.showMessage("Active Character: " + activeCharacter.name);
+        view.showMessage(" ");
+        view.showChoices("Is this your final descision?", new ArrayList<String>(Arrays.asList("Yes. Start exploration", "No. Create a new exploration team")));;
+        
+        choice = getChoice(1, 2);
+        switch(choice){
+            case 1:
+                game();
+                break;
+            case 2:
+                selectExploration();
+                break;
+        }
+    }
+
+    public void game(){
+        clearTerminal();
+        enemy = createEnemy();
+        view.showMessage("Your team encountered " + enemy.getName() + "!");
+
+        while (enemy.isAlive()){
+            view.showEnemyQuickStats(enemy);
+            view.showMessage("Active Character: ");
+            view.showCharacterQuickStats(activeCharacter);
+            view.showPlayerTurn(activeCharacter);
+        }
+        
+
+        //You encounter ___ enemy.
+        //show enemy stats
+        //show active character stas
+        //show choices
+        //player choose choice, give error handling
+        //do what player chooses. 
+        //enemy turn.
+        //repeat
+    }
+
+    public void playerTurn(){
+
+    }
+
+    public void enemyTurn(){
+
+    }
+
+    public enemy createEnemy(){
+        int getEnemy = randomEnemy.nextInt(6) + 1;
+        return enemyCreator.chooseEnemy(getEnemy);
+    }
+
+    private int getChoice(int min, int max) {
+        int choice = -1;
+        while (choice < min || choice > max) {
             if (scanner.hasNextInt()) {
                 choice = scanner.nextInt();
             } else {
                 scanner.next();
-                view.showMessage("Invalid input. Please try again.");
+                view.showMessage("Invalid input. Please enter a number between " + min + " and " + max + ".");
             }
         }
-
-        partner2 = agentCreator.chooseCharacter(choice);
-        teamList.add(partner2);
-
-        teamConfirmation();
-        
-        }
-    }
-
-    public void teamConfirmation(){
-        clearTerminal();
-        view.showMessage("Selected team: " + teamList.get(0).name + " " + teamList.get(1).name);
-        view.showMessage("Active Character: " + teamList.get(0).name);
-        view.showMessage(" ");
-        view.showChoices("Is this your final descision?", new ArrayList<String>(Arrays.asList("Yes. Start exploration", "No. Create a new exploration team")));;
-        
-
-
+        return choice;
     }
 
    //public agent getPartnerInfo(String name){
