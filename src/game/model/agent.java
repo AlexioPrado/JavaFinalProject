@@ -22,7 +22,6 @@ public abstract class agent {
     protected int naDmg;
     protected int skDmg;
     protected int ultDmg;
-    protected boolean partnerBuff;
     protected int partnerBuffDmg;
     protected int partnerBuffDuration;
     protected int partnerBuffMaxDuration;
@@ -107,10 +106,6 @@ public abstract class agent {
 
     public String getUltName(){
         return ultName;
-    }
-
-    public boolean getPartnerBuff(){
-        return partnerBuff;
     }
 
     public int getPartnerBuffDmg(){

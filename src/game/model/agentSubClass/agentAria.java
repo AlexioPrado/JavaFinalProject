@@ -26,7 +26,6 @@ public class agentAria extends agent{
         this.naDmg = 3;
         this.skDmg = 4;
         this.ultDmg = 2;
-        this.partnerBuff = false;
         this.partnerBuffDmg = -1;
         this.partnerBuffDuration = -1;
         this.partnerBuffMaxDuration = -1;
