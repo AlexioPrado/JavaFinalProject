@@ -11,21 +11,21 @@ import game.controller.gameController;
 import game.view.gameView;
 
 public abstract class agent {
-    public String name;
-    public int maxHealth;
-    public int health;
-    public int maxEnergy;
-    public int energy;
-    public String naName;
-    public String skName;
-    public String ultName;
-    public int naDmg;
-    public int skDmg;
-    public int ultDmg;
-    public boolean partnerBuff;
-    public int partnerBuffDmg;
-    public int partnerBuffDuration;
-    public int partnerBuffMaxDuration;
+    protected String name;
+    protected int maxHealth;
+    protected int health;
+    protected int maxEnergy;
+    protected int energy;
+    protected String naName;
+    protected String skName;
+    protected String ultName;
+    protected int naDmg;
+    protected int skDmg;
+    protected int ultDmg;
+    protected boolean partnerBuff;
+    protected int partnerBuffDmg;
+    protected int partnerBuffDuration;
+    protected int partnerBuffMaxDuration;
 
     public gameController agentControl;
 

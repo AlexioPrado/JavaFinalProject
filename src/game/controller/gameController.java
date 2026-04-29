@@ -37,69 +37,63 @@ public class gameController {
     }
 
     public void start(){
+        int choice = -1;
         resetGame();
         clearTerminal();
         view.showMenu();
-        switch (scanner.next()){
-            case "1":
+        choice = getChoice(1, 3);
+        switch (choice){
+            case 1:
                 selectExploration();
                 break;
-            case "2":
+            case 2:
                 showAgentCombat();
                 break;
-            case "3":
+            case 3:
                 combatRules();
                 break;
-            default:
-                clearTerminal();
-                view.showMessage("Input Incorrect. The world relies on your decisions. Act quickly and stop delaying.\nEnter to restart:");
-                scanner.nextLine();
-                start();
         }
     }
 
     public void combatRules(){
+        int choice = -1;
         clearTerminal();
         view.showCombatRules();
         view.showMessage("You read the combat rules of the Mii Hollow.");
-        view.showMessage("Enter to go back:");
-        scanner.nextLine();
+        view.showMessage("Enter \"1\" to go back:");
+        choice = getChoice(1, 1);
         start();
     }
 
     public void showAgentCombat(){
+        int choice = -1;
         clearTerminal();
         view.showChoices("Select agent to examine:", new ArrayList<>(Arrays.asList("Aria", "Nangong", "Sunna")));
         view.showMessage("Select your next action:");
-
-        switch(scanner.next()){
-            case "1":
+        choice = getChoice(1, 3);
+        switch(choice){
+            case 1:
                 clearTerminal();
                 view.showCharacterKit(new agentAria());
                 break;
-            case "2":
+            case 2:
                 clearTerminal();
                 view.showCharacterKit(new agentNangong());
                 break;
-            case "3":
+            case 3:
                 clearTerminal();
                 view.showCharacterKit(new agentSunna());
                 break;
-            default:
-                clearTerminal();
-                view.showMessage("Input Incorrect. Restarting agent combat examine. Take this serious.\nEnter to restart:");
-                scanner.nextLine();
-                showAgentCombat();
         }
         
         view.showChoices("You read thoroughly about the agent.", new ArrayList<>(Arrays.asList("Examine another agent.", "Go back to begin exploration.")));
         view.showMessage("Select your next action:");
-
-        switch(scanner.next()){
-            case "1":
+        choice = getChoice(1, 2);
+        switch(choice){
+            case 1:
                 showAgentCombat();
                 break;
-            case "2":
+            case 2:
                 start();
                 break;
         }
@@ -119,7 +113,7 @@ public class gameController {
         teamList.add(partner1);
 
         clearTerminal();
-        view.showMessage("Selected Agents: " + teamList.get(0).name);
+        view.showMessage("Selected Agents: " + teamList.get(0).getName());
         view.showMessage("");
         view.showChoices("Select your 2nd agent below.", agentList);
         view.showMessage("Select your next action:");
@@ -158,8 +152,8 @@ public class gameController {
     public void teamConfirmation(){
         int choice;
         clearTerminal();
-        view.showMessage("Selected team: " + teamList.get(0).name + " | " + teamList.get(1).name);
-        view.showMessage("Active Character: " + activeCharacter.name);
+        view.showMessage("Selected team: " + teamList.get(0).getName() + " | " + teamList.get(1).getName());
+        view.showMessage("Active Character: " + activeCharacter.getName());
         view.showMessage(" ");
         view.showChoices("Is this your final descision?", new ArrayList<String>(Arrays.asList("Yes. Start exploration", "No. Create a new exploration team")));;
         
@@ -175,6 +169,7 @@ public class gameController {
     }
 
     public void game(){
+        int choice = -1;
         clearTerminal();
         enemy = createEnemy();
         view.showMessage("Your team encountered " + enemy.getName() + "!");
@@ -199,8 +194,8 @@ public class gameController {
         offCharacter.heal(5);
         view.showMessage("+ Team is healed by 5.\n");
 
-        view.showMessage("Continue exploring the Mii hollow. \nEnter to continue:");
-        scanner.next();
+        view.showMessage("Continue exploring the Mii hollow. \nEnter \"1\" to continue:");
+        choice = getChoice(1, 1);
         game();
     }
 
@@ -257,13 +252,12 @@ public class gameController {
         return enemyCreator.chooseEnemy(getEnemy);
     }
 
-
     public void endGame(){
         int choice;
         clearTerminal();
         view.endGame();
         view.showMessage(" ");
-        view.showChoices("What should you do now?", new ArrayList<String>(Arrays.asList("Restart time. Save humanity.","I don\'t give a f*ck.")));
+        view.showChoices("What should you do now?", new ArrayList<String>(Arrays.asList("Restart time. Save humanity.","I don\'t gaf.")));
         choice = getChoice(1, 2);
         switch (choice){
             case 1:
@@ -282,7 +276,11 @@ public class gameController {
                 choice = scanner.nextInt();
             } else {
                 scanner.next();
-                view.showMessage("Invalid input. Please enter a number between " + min + " and " + max + ".");
+                if (max - min > 0){
+                    view.showMessage("Invalid input. Please enter a number between " + min + " and " + max + ".");
+                } else {
+                    view.showMessage("Invalid input. Please enter the number " + min);
+                }
             }
         }
         return choice;

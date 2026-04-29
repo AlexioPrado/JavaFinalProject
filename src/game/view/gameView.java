@@ -27,7 +27,7 @@ public class gameView {
 
     public void showCharacterKit(agent character){
         System.out.println("+--------------------------------------");
-        System.out.println("| Name: " + character.name);
+        System.out.println("| Name: " + character.getName());
         System.out.println("|--------------------------------------");
         System.out.println("| Normal Attack:                       ");
         System.out.println("| " + character.getNormalAttackInfo());
