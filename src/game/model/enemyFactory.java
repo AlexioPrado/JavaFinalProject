@@ -10,23 +10,22 @@ package game.model;
 import game.model.enemySubClass.*;
 
 public class enemyFactory {
-    private static enemy placeholder;
     public static enemy chooseCharacter(int type){
         switch(type) {
             case 1:
-                return placeholder = new enemyChiikawa();
+                return new enemyChiikawa();
             case 2: 
-                return placeholder = new enemyHachiware();
+                return new enemyHachiware();
             case 3: 
-                return placeholder = new enemyUsagi();
+                return  new enemyUsagi();
             case 4:
-                return placeholder = new enemyMcCuen();
+                return new enemyMcCuen();
             case 5:
-                return placeholder = new enemyKeller();
+                return new enemyKeller();
             case 6:
-                return placeholder = new enemyGardner();
+                return new enemyGardner();
             default:
-                return placeholder;
+                return null;
         }
     }
 }

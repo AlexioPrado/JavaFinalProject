@@ -10,17 +10,16 @@ package game.model;
 import game.model.agentSubClass.*;
 
 public class agentFactory {
-    private static agent placeholder;
     public agent chooseCharacter(int type){
         switch (type) {
             case 1:
-                return placeholder = new agentAria();
+                return new agentAria();
             case 2: 
-                return placeholder = new agentNangong();
+                return new agentNangong();
             case 3: 
-                return placeholder = new agentSunna();
+                return new agentSunna();
             default:
-                return placeholder;
+                return null;
         }
     }
 }
