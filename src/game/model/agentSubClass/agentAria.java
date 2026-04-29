@@ -2,7 +2,7 @@
  * Marcus Alexio Prado
  * Course: Adv Java
  * Date: 4/26/26
- * Last Modified: 4/27/26
+ * Last Modified: 4/29/26
  * 
  */
 
@@ -26,9 +26,9 @@ public class agentAria extends agent{
         this.skDmg = 4;
         this.ultDmg = 2;
         this.partnerBuff = false;
-        this.partnerBuffDmg = 0;
-        this.partnerBuffDuration = 0;
-        this.partnerBuffMaxDuration = 0;
+        this.partnerBuffDmg = -1;
+        this.partnerBuffDuration = -1;
+        this.partnerBuffMaxDuration = -1;
     }
 
     @Override
@@ -52,6 +52,11 @@ public class agentAria extends agent{
     @Override
     public void normalAttack(){
         int totalAttack = naDmg;
+
+        if (partnerBuffDuration > 0){
+            totalAttack += partnerBuffDmg;
+            partnerBuffDuration -= 1;
+        }
         if (agentControl.isEnemyStun()){
             totalAttack += 3;
         }
@@ -63,33 +68,41 @@ public class agentAria extends agent{
             naBuffDuration = 2;
         }
 
-        agentControl.dealDamage(totalAttack, "enemy");
-      
         gainEnergy();
+        
+        agentControl.dealDamage(totalAttack, "enemy");
     }
     
     @Override
     public void skillAttack(){
         int totalAttack = skDmg;
+
+        if (partnerBuffDuration > 0){
+            totalAttack += partnerBuffDmg;
+            partnerBuffDuration -= 1;
+        }
         if (agentControl.isEnemyStun()){
             totalAttack += 1;
         }
 
-        agentControl.dealDamage(totalAttack, "enemy");
-
         gainEnergy();
-        //partner.gainEnergy();
+        agentControl.partnerEnergyIncrease();
+
+        agentControl.dealDamage(totalAttack, "enemy");
     }
     
     @Override
     public void ultimateAttack(){
         int totalAttack = ultDmg;
+
+        if (partnerBuffDuration > 0){
+            totalAttack += partnerBuffDmg;
+            partnerBuffDuration -= 1;
+        }
         if (agentControl.isEnemyStun()){
             totalAttack += 1;
         }
-    
-        agentControl.dealDamage(totalAttack, "enemy");
-        
+
         useEnergy();
         
         if (naBuffActive){
@@ -97,5 +110,7 @@ public class agentAria extends agent{
         } else {
             naBuffActive = !naBuffActive;
         }
+    
+        agentControl.dealDamage(totalAttack, "enemy");
     }
 }

@@ -2,7 +2,7 @@
  * Marcus Alexio Prado
  * Course: Adv Java
  * Date: 4/27/26
- * Last Modified: 4/27/26
+ * Last Modified: 4/29/26
  * 
 */
 
@@ -17,7 +17,7 @@ public class enemyFactory {
             case 2: 
                 return new enemyHachiware();
             case 3: 
-                return  new enemyUsagi();
+                return new enemyUsagi();
             case 4:
                 return new enemyMcCuen();
             case 5:

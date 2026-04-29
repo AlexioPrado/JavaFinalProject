@@ -2,7 +2,7 @@
  * Marcus Alexio Prado
  * Course: JAdv Java
  * Date: 4/23/26
- * Last Modified: 4/28/26
+ * Last Modified: 4/29/26
  * 
  * 
  */
@@ -28,6 +28,7 @@ public class gameController {
     public agent activeCharacter;
     public agent offCharacter;
     public ArrayList<agent> teamList = new ArrayList<agent>();
+    public int battleCounter = 0;
     //private boolean running = true;
 
     public gameController(gameView view){
@@ -36,6 +37,7 @@ public class gameController {
     }
 
     public void start(){
+        resetGame();
         clearTerminal();
         view.showMenu();
         switch (scanner.next()){
@@ -177,21 +179,28 @@ public class gameController {
         enemy = createEnemy();
         view.showMessage("Your team encountered " + enemy.getName() + "!");
 
+        activeCharacter.setAgentControl(this);
+        offCharacter.setAgentControl(this);
+        enemy.setGameControl(this);
+
         while (enemy.isAlive()){
+            view.showMessage("\n--------------------------------------------");
             playerTurn();
-            enemyTurn();
-            break;
+            if (enemy.isAlive()){
+                enemyTurn();
+            }
         }
         
+        view.showMessage("\n--------------------------------------------");
+        view.showMessage("Exploration team defeated " + enemy.getName());
 
-        //You encounter ___ enemy.
-        //show enemy stats
-        //show active character stas
-        //show choices
-        //player choose choice, give error handling
-        //do what player chooses. 
-        //enemy turn.
-        //repeat
+        activeCharacter.heal(5);
+        offCharacter.heal(5);
+        view.showMessage("+ Team is healed by 5.\n");
+
+        view.showMessage("Continue exploring the Mii hollow. \nEnter to continue:");
+        scanner.next();
+        game();
     }
 
     public void playerTurn(){
@@ -206,6 +215,8 @@ public class gameController {
         view.showMessage("\nChoice: ");
         choice = getChoice(1, 6);
 
+        clearTerminal();
+
         switch (choice){
             case 1:
                 activeCharacter.normalAttack();
@@ -217,23 +228,13 @@ public class gameController {
                 if (activeCharacter.ultimateStatus()){
                     activeCharacter.ultimateAttack();
                 } else {
-                    view.showMessage("\n Ultimate: " + activeCharacter.getUltName() + "is not ready.");
-                    view.showMessage("Enter to continue selecting Action: ");
+                    view.showMessage("\nUltimate: " + activeCharacter.getUltName() + " is not ready.");
                     scanner.nextLine();
                     playerTurn();
                 }
                 break;
             case 4:
-                if (offCharacter.isAlive()){
-                    agent placeholder = activeCharacter;
-                    activeCharacter = offCharacter;
-                    offCharacter = placeholder;
-                } else {
-                    view.showMessage(offCharacter.getName() + "is dead. " + activeCharacter.getName() + "must fight alone.");
-                    view.showMessage("Enter to continue selecting Action: ");
-                    scanner.nextLine();
-                    playerTurn();
-                }
+                switchCharacter();
                 break;
             case 5:
                 clearTerminal();
@@ -247,13 +248,14 @@ public class gameController {
     }
 
     public void enemyTurn(){
-
+        enemy.enemyAttack();
     }
 
     public enemy createEnemy(){
         int getEnemy = randomEnemy.nextInt(6) + 1;
         return enemyCreator.chooseEnemy(getEnemy);
     }
+
 
     public void endGame(){
         int choice;
@@ -295,31 +297,97 @@ public class gameController {
    //    }
    //}
 
+    public void healOffCharacter(int heal){
+        offCharacter.heal(heal);
+    }
+
+    public void applyPartnerBuff(){
+        int buff = activeCharacter.getPartnerBuffDmg();
+        int duration = activeCharacter.getPartnerBuffDuration();
+        int maxDuration = activeCharacter.getPartnerBuffMaxDuration();
+
+        offCharacter.setPartnerBuffDmg(buff);
+        offCharacter.setPartnerBuffDuration(duration-1);
+        offCharacter.setPartnerBuffMaxDuration(maxDuration-1);
+    }
+
+    public void partnerEnergyIncrease(){
+        offCharacter.gainEnergy();
+    }
+
     public void dealDamage(int dmg, String dmgDealtTo){
-        if (dmg == -1){
-            //USE TO INDICATE ENEMY ATTACK WAS BLOCKED DUE TO STUN
-        }
+        view.showMessage(" ");
 
         switch(dmgDealtTo){
             case "agent":
-                // DEAL DMG TO THE ACTIVE AGENT
+                view.showMessage("Enemy action: ");
+                if (dmg == -1){
+                    view.showMessage(enemy.getName() + " tried to deal dmg but is stunned!");
+                } else {
+                    view.showMessage(enemy.getName() + " dealt " + dmg + " dmg to " + activeCharacter.getName() + "!");
+                    activeCharacter.takeDamage(dmg);
+                    if (!activeCharacter.isAlive()){
+                        agentDeath();
+                    }
+                }
                 break;
             case "enemy":
-                //DEAL DMG TO THE ENEMY
-                view.showMessage(" ");
-                view.showMessage(activeCharacter.getName() + "dealt " + dmgDealtTo + " dmg to " + enemy.getName() + "!");
+                view.showMessage("Player action:");
+                view.showMessage(activeCharacter.getName() + " dealt " + dmg + " dmg to " + enemy.getName() + "!");
+                enemy.takeDamage(dmg);
+                if (!enemy.isAlive()){
+                    enemyDeath();
+                }
                 break; 
         }
     }
 
+    public void switchCharacter(){
+        view.showMessage("Player action: ");
+        if (offCharacter.isAlive()){
+            agent placeholder = activeCharacter;
+            activeCharacter = offCharacter;
+            offCharacter = placeholder;
+            view.showMessage(offCharacter.getName() + " switched with " + activeCharacter.getName());
+        } else {
+            view.showMessage(offCharacter.getName() + "is dead. " + activeCharacter.getName() + "must fight alone.");
+            scanner.nextLine();
+            playerTurn();
+        }
+    }
+
+    public void enemyDeath(){
+        view.showMessage(enemy.getName() + " died by " + activeCharacter.getName() + "\'s attack!");
+    }
+
+    public void agentDeath(){
+        view.showMessage(activeCharacter.getName() + " died by " + enemy.getName() + "\'s attack!");
+        view.showMessage(offCharacter.getName() + " switched with " + activeCharacter.getName());
+        if (!activeCharacter.isAlive() && !offCharacter.isAlive()){
+            endGame();
+            return;
+        }
+        agent placeholder = activeCharacter;
+        activeCharacter = offCharacter;
+        offCharacter = placeholder;
+    }
+
     public boolean isEnemyStun(){
-        //take enemy object and return isStun method. 
-        return true;
+        return enemy.isStun();
     }
 
     public void stunEnemy(int duration){
-
+        enemy.setStun(duration);
     }
+
+    public void resetGame(){
+        enemy = null;
+        partner1 = null;
+        partner2 = null;
+        activeCharacter = null;
+        offCharacter = null;
+        teamList.clear();
+}   
 
     public static void clearTerminal() {
         try {

@@ -2,7 +2,7 @@
  * Marcus Alexio Prado
  * Course: Adv Java
  * Date: 4/26/26
- * Last Modified: 4/27/26
+ * Last Modified: 4/29/26
  * 
  */
 
@@ -23,6 +23,9 @@ public class agentSunna extends agent{
         this.naDmg = 1;
         this.skDmg = 3;
         this.ultDmg = 2;
+        this.partnerBuffDmg = 3;
+        this.partnerBuffDuration = 0;
+        this.partnerBuffMaxDuration = 4;
     }
 
     @Override
@@ -47,39 +50,56 @@ public class agentSunna extends agent{
         @Override
     public void normalAttack(){
         int totalAttack = naDmg;
+
+        if (partnerBuffDuration > 0){
+            totalAttack += partnerBuffDmg;
+            partnerBuffDuration -= 1;
+        }
         if (agentControl.isEnemyStun()){
             totalAttack += 1;
         }
 
-        agentControl.dealDamage(totalAttack, "enemy");
-      
         gainEnergy();
+
+        agentControl.dealDamage(totalAttack, "enemy");
     }
 
     @Override
     public void skillAttack(){
         int totalAttack = skDmg;
+        
+        partnerBuffDuration = partnerBuffMaxDuration;
+        agentControl.applyPartnerBuff();
+        if (partnerBuffDuration > 0){
+            totalAttack += partnerBuffDmg;
+            partnerBuffDuration -= 1;
+        }
         if (agentControl.isEnemyStun()){
             totalAttack += 1;
         }
 
-        agentControl.dealDamage(totalAttack, "enemy");
-
         gainEnergy();
+
+        agentControl.dealDamage(totalAttack, "enemy");        
     }
     
     @Override
     public void ultimateAttack(){
         int totalAttack = ultDmg;
+
+        if (partnerBuffDuration > 0){
+            totalAttack += partnerBuffDmg;
+            partnerBuffDuration -= 1;
+        }
         if (agentControl.isEnemyStun()){
             totalAttack += 1;
         }
     
-        heal(5);
-        //Implement healing for other party member
+        heal(7);
+        agentControl.healOffCharacter(7);
 
-        agentControl.dealDamage(totalAttack, "enemy");
-        
         useEnergy();
+
+        agentControl.dealDamage(totalAttack, "enemy");        
     }
 }

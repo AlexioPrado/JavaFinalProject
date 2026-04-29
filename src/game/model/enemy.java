@@ -2,12 +2,13 @@
  * Marcus Alexio Prado
  * Course: Adv Java 
  * Date: 4/27/26
- * Last Modified: 4/27/26
+ * Last Modified: 4/29/26
  * 
  */
 
 package game.model;
 import game.controller.gameController;
+import game.view.gameView;
 
 public abstract class enemy {
     public String name;
@@ -19,6 +20,10 @@ public abstract class enemy {
 
     public gameController enemyControl;
 
+    public void setGameControl(gameController control){
+        enemyControl = control;
+    }
+
     public boolean isAlive(){
         return health > 0;
     }
@@ -29,6 +34,9 @@ public abstract class enemy {
 
     public void heal(int heal){
         health += heal;
+        if (health > maxHealth){
+            health = maxHealth;
+        }
     }
 
     public boolean isStun(){
@@ -36,8 +44,10 @@ public abstract class enemy {
     }
 
     public void setStun(int duration){
-        isStun = !isStun;
-        stunDuration = duration;
+        if (!isStun){
+            isStun = !isStun;
+            stunDuration = duration;
+        }
     }
 
     public String getName(){
@@ -50,6 +60,10 @@ public abstract class enemy {
 
     public int getMaxHealth(){
         return maxHealth;
+    }
+
+    public int getStunDuration(){
+        return stunDuration;
     }
 
     public abstract void enemyAttack();

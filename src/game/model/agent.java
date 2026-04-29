@@ -2,12 +2,13 @@
  * Marcus Alexio Prado 
  * Course: Adv Java
  * Date: 4/24/26
- * Last Modified: 4/27/26
+ * Last Modified: 4/29/26
  * 
  */
 
 package game.model;
 import game.controller.gameController;
+import game.view.gameView;
 
 public abstract class agent {
     public String name;
@@ -28,14 +29,20 @@ public abstract class agent {
 
     public gameController agentControl;
 
+    public void setAgentControl(gameController control){
+        agentControl = control;
+    }
+
     public boolean isAlive() {
         return health > 0;
     }
 
-    public void heal(int healing){
-        health += healing;
-        if (health > maxHealth){
-            health = maxHealth;
+    public void heal(int heal){
+        if (health > 0){
+            health += heal;
+            if (health > maxHealth){
+                health = maxHealth;
+            }
         }
     }
 
@@ -56,6 +63,18 @@ public abstract class agent {
 
     public void takeDamage(int dmg){
         health -= dmg;
+    }
+
+    public void setPartnerBuffDmg(int buff){
+        partnerBuffDmg = buff;
+    }
+
+    public void setPartnerBuffDuration(int duration){
+        partnerBuffDuration = duration;
+    }
+
+    public void setPartnerBuffMaxDuration(int maxDuration){
+        partnerBuffMaxDuration = maxDuration;
     }
 
     public String getName(){

@@ -2,7 +2,7 @@
  * Marcus Alexio Prado
  * Course: Adv Java
  * Date: 4/23/26
- * Last Modified: 4/26/26
+ * Last Modified: 4/29/26
  * 
  */
 
@@ -41,8 +41,8 @@ public class gameView {
     }
 
     public void showEnemyQuickStats(enemy enemy){
-        System.out.println(enemy.getName());
-        System.out.println("HP: " + enemy.getHealth() + "/" + enemy.getMaxHealth());
+        System.out.println(enemy.getName() + "  HP: " + enemy.getHealth() + "/" + enemy.getMaxHealth());
+        System.out.println("isStun: " + enemy.isStun() + "     Stun Duration: " + enemy.getStunDuration());
     }
 
     public void showCharacterQuickStats(agent character){

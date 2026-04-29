@@ -2,7 +2,7 @@
  * Marcus Alexio Prado
  * Course: Adv Java
  * Date: 4/26/26
- * Last Modified: 4/26/26
+ * Last Modified: 4/29/26
  * 
  */
 
@@ -23,6 +23,9 @@ public class agentNangong extends agent{
         this.naDmg = 2;
         this.skDmg = 3;
         this.ultDmg = 3;
+        this.partnerBuffDmg = -1;
+        this.partnerBuffDuration = -1;
+        this.partnerBuffMaxDuration = -1;
     }
 
      @Override
@@ -46,41 +49,54 @@ public class agentNangong extends agent{
     @Override
     public void normalAttack(){
         int totalAttack = naDmg;
+
+        if (partnerBuffDuration > 0){
+            totalAttack += partnerBuffDmg;
+            partnerBuffDuration -= 1;
+        }
         if (agentControl.isEnemyStun()){
             totalAttack += 1;
         }
+        gainEnergy();
 
         agentControl.dealDamage(totalAttack, "enemy");
-      
-        gainEnergy();
     }
 
     @Override
     public void skillAttack(){
         int totalAttack = skDmg;
+
+        agentControl.stunEnemy(3);
+
+        if (partnerBuffDuration > 0){
+            totalAttack += partnerBuffDmg;
+            partnerBuffDuration -= 1;
+        }
         if (agentControl.isEnemyStun()){
             totalAttack += 1;
         }
 
-        //Stun functionality. create controller method for stunning
-
-        agentControl.dealDamage(totalAttack, "enemy");
-
         gainEnergy();
-        
+
+        agentControl.dealDamage(totalAttack, "enemy");     
     }
     
     @Override
     public void ultimateAttack(){
         int totalAttack = ultDmg;
+
+        agentControl.stunEnemy(4);
+
+        if (partnerBuffDuration > 0){
+            totalAttack += partnerBuffDmg;
+            partnerBuffDuration -= 1;
+        }
         if (agentControl.isEnemyStun()){
             totalAttack += 1;
         }
 
-        //Implement stun
+        useEnergy();
 
         agentControl.dealDamage(totalAttack, "enemy");
-        
-        useEnergy();
     }
 }
