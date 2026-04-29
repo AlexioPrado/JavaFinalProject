@@ -6,6 +6,9 @@
  * 
  */
 
+package game.model.agentSubClass;
+import game.model.agent;
+
 public class agentSunna extends agent{
 
     public agentSunna(){
@@ -39,5 +42,44 @@ public class agentSunna extends agent{
         //                                                                                      
         String ultInfo = "Sunna becomes enraged, clammoring \n| the enemy with her mallet,\n| dealing 2 dmg. Heals the exploration\n| team by 5 HP.";
         return ultInfo;
+    }
+
+        @Override
+    public void normalAttack(){
+        int totalAttack = naDmg;
+        if (agentControl.isEnemyStun()){
+            totalAttack += 1;
+        }
+
+        agentControl.dealDamage(totalAttack, "enemy");
+      
+        gainEnergy();
+    }
+
+    @Override
+    public void skillAttack(){
+        int totalAttack = skDmg;
+        if (agentControl.isEnemyStun()){
+            totalAttack += 1;
+        }
+
+        agentControl.dealDamage(totalAttack, "enemy");
+
+        gainEnergy();
+    }
+    
+    @Override
+    public void ultimateAttack(){
+        int totalAttack = ultDmg;
+        if (agentControl.isEnemyStun()){
+            totalAttack += 1;
+        }
+    
+        heal(5);
+        //Implement healing for other party member
+
+        agentControl.dealDamage(totalAttack, "enemy");
+        
+        useEnergy();
     }
 }

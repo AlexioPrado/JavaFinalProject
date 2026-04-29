@@ -6,6 +6,9 @@
  * 
 */
 
+package game.model;
+import game.model.agentSubClass.*;
+
 public class agentFactory {
     private static agent placeholder;
     public agent chooseCharacter(int type){

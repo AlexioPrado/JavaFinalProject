@@ -6,6 +6,9 @@
  * 
  */
 
+package game.model.agentSubClass;
+import game.model.agent;
+
 public class agentNangong extends agent{
 
     public agentNangong(){
@@ -40,4 +43,44 @@ public class agentNangong extends agent{
         return ultInfo;
     }
     
+    @Override
+    public void normalAttack(){
+        int totalAttack = naDmg;
+        if (agentControl.isEnemyStun()){
+            totalAttack += 1;
+        }
+
+        agentControl.dealDamage(totalAttack, "enemy");
+      
+        gainEnergy();
+    }
+
+    @Override
+    public void skillAttack(){
+        int totalAttack = skDmg;
+        if (agentControl.isEnemyStun()){
+            totalAttack += 1;
+        }
+
+        //Stun functionality. create controller method for stunning
+
+        agentControl.dealDamage(totalAttack, "enemy");
+
+        gainEnergy();
+        
+    }
+    
+    @Override
+    public void ultimateAttack(){
+        int totalAttack = ultDmg;
+        if (agentControl.isEnemyStun()){
+            totalAttack += 1;
+        }
+
+        //Implement stun
+
+        agentControl.dealDamage(totalAttack, "enemy");
+        
+        useEnergy();
+    }
 }

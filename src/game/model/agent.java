@@ -6,27 +6,37 @@
  * 
  */
 
-public abstract class agent {
-    protected String name;
-    protected int maxHealth;
-    protected int health;
-    protected int maxEnergy;
-    protected int energy;
-    protected String naName;
-    protected String skName;
-    protected String ultName;
-    protected int naDmg;
-    protected int skDmg;
-    protected int ultDmg;
-    protected boolean partnerBuff;
-    protected int partnerBuffDmg;
-    protected int partnerBuffDuration;
-    protected int partnerBuffMaxDuration;
+package game.model;
+import game.controller.gameController;
 
-    protected gameController agentControl;
+public abstract class agent {
+    public String name;
+    public int maxHealth;
+    public int health;
+    public int maxEnergy;
+    public int energy;
+    public String naName;
+    public String skName;
+    public String ultName;
+    public int naDmg;
+    public int skDmg;
+    public int ultDmg;
+    public boolean partnerBuff;
+    public int partnerBuffDmg;
+    public int partnerBuffDuration;
+    public int partnerBuffMaxDuration;
+
+    public gameController agentControl;
 
     public boolean isAlive() {
         return health > 0;
+    }
+
+    public void heal(int healing){
+        health += healing;
+        if (health > maxHealth){
+            health = maxHealth;
+        }
     }
 
     public boolean getPartnerStatus(){
@@ -104,9 +114,9 @@ public abstract class agent {
     public abstract String getSkillAttackInfo();
     public abstract String getUltimateAttackInfo();
 
-    //public abstract void normalAttack(Enemy enemy);
-    //public abstract void skillAttack(Enemy enemy);
-    //public abstract void ultimateAttack(Enemy enemy);
+    public abstract void normalAttack();
+    public abstract void skillAttack();
+    public abstract void ultimateAttack();
     
 
     //CREATE DMG STUN INCREASE METHOD

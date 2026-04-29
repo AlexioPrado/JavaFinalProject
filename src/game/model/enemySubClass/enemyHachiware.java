@@ -1,22 +1,26 @@
 /**
  * Marcus Alexio Prado
  * Course: Adv Java
- * Date: 4/28/26
+ * Date: 4/29/26
  * Last Modified: 4/29/26
  * 
  */
+package game.model.enemySubClass;
+import game.model.enemy;
 
-public class enemyChiikawa extends enemy {
-    private boolean attackSwitch = false;
-
-    public enemyChiikawa(){
-        this.name = "Chiikawa";
-        this.health = 18;
-        this.maxHealth = 18;
-        this.attack = 4;
+public class enemyHachiware extends enemy {
+    private int bigAttackBonus = 5;
+    private int bigAttackCounter = 3;
+    
+    public enemyHachiware(){
+        this.name = "Hachiware";
+        this.health = 30;
+        this.maxHealth = 30;
+        this.attack = 2;
         this.isStun = false;
         this.stunDuration = 0;
     }
+    
 
     public void enemyAttack(){
         int totalAttack = attack;
@@ -28,11 +32,11 @@ public class enemyChiikawa extends enemy {
             totalAttack = -1;
             stunDuration -= 1;
         } else {
-            if (attackSwitch){
-                attackSwitch = !attackSwitch;
-                totalAttack += 1;
+            if (bigAttackCounter == 0){
+                totalAttack += bigAttackBonus;
+                bigAttackCounter = 3;
             } else {
-                attackSwitch = !attackSwitch;
+                bigAttackCounter -= 1;
             }
         }
         

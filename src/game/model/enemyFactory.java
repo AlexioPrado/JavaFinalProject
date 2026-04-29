@@ -6,6 +6,9 @@
  * 
 */
 
+package game.model;
+import game.model.enemySubClass.*;
+
 public class enemyFactory {
     private static enemy placeholder;
     public static enemy chooseCharacter(int type){

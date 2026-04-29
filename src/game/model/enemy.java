@@ -6,15 +6,18 @@
  * 
  */
 
-public abstract class enemy {
-    protected String name;
-    protected int health;
-    protected int maxHealth;
-    protected int attack;
-    protected boolean isStun;
-    protected int stunDuration;
+package game.model;
+import game.controller.gameController;
 
-    protected gameController enemyControl;
+public abstract class enemy {
+    public String name;
+    public int health;
+    public int maxHealth;
+    public int attack;
+    public boolean isStun;
+    public int stunDuration;
+
+    public gameController enemyControl;
 
     public boolean isAlive(){
         return health < 0;
@@ -49,5 +52,5 @@ public abstract class enemy {
         return maxHealth;
     }
 
-    public abstract void enemyAttack(agent agent);
+    public abstract void enemyAttack();
 }

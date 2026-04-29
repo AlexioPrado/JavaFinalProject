@@ -6,28 +6,32 @@
  * 
  */
 
-public class enemyGardner extends enemy {
-    public enemyGardner(){
-        this.name = "Ethan Gardner";
-        this.health = 25;
-        this.maxHealth = 25;
-        this.attack = 4;
+package game.model.enemySubClass;
+import game.model.enemy;
+
+public class enemyMcCuen extends enemy {
+    public enemyMcCuen(){
+        this.name = "Russ McCuen";
+        this.health = 26;
+        this.maxHealth = 26;
+        this.attack = 1;
         this.isStun = false;
         this.stunDuration = 0;
     }
-
-    public void enemyAttack(agent agent){
+    
+    public void enemyAttack(){
         if (stunDuration == 0 && isStun){
-            attack = 3;
+            attack = 1;
             isStun = !isStun;
         }
         if (isStun){
             attack = -1;
             stunDuration -= 1;
         } else {
-            attack += 1;
+            attack *= 2;
         }
         
+
         enemyControl.dealDamage(attack, "agent");
     }
 }

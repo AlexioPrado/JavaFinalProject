@@ -6,21 +6,20 @@
  * 
  */
 
-public class enemyHachiware extends enemy {
-    private int bigAttackBonus = 5;
-    private int bigAttackCounter = 3;
-    
-    public enemyHachiware(){
-        this.name = "Hachiware";
-        this.health = 30;
-        this.maxHealth = 30;
+package game.model.enemySubClass;
+import game.model.enemy;
+
+public class enemyUsagi extends enemy {
+    public enemyUsagi(){
+        this.name = "Usagi";
+        this.health = 50;
+        this.maxHealth = 50;
         this.attack = 2;
         this.isStun = false;
         this.stunDuration = 0;
     }
     
-
-    public void enemyAttack(agent agent){
+    public void enemyAttack(){
         int totalAttack = attack;
 
         if (stunDuration == 0 && isStun){
@@ -30,12 +29,7 @@ public class enemyHachiware extends enemy {
             totalAttack = -1;
             stunDuration -= 1;
         } else {
-            if (bigAttackCounter == 0){
-                totalAttack += bigAttackBonus;
-                bigAttackCounter = 3;
-            } else {
-                bigAttackCounter -= 1;
-            }
+            heal(totalAttack + 1);
         }
         
         enemyControl.dealDamage(totalAttack, "agent");

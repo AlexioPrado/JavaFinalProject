@@ -6,6 +6,9 @@
  * 
  */
 
+package game.model.agentSubClass;
+import game.model.agent;
+
 public class agentAria extends agent{
     private boolean naBuffActive = false;
     private int naBuffDuration = 2;
@@ -60,7 +63,7 @@ public class agentAria extends agent{
             naBuffDuration = 2;
         }
 
-        agentControl.dealDamage(totalAttack);
+        agentControl.dealDamage(totalAttack, "enemy");
       
         gainEnergy();
     }
@@ -72,7 +75,7 @@ public class agentAria extends agent{
             totalAttack += 1;
         }
 
-        agentControl.dealDamage(totalAttack);
+        agentControl.dealDamage(totalAttack, "enemy");
 
         gainEnergy();
         //partner.gainEnergy();
@@ -85,9 +88,14 @@ public class agentAria extends agent{
             totalAttack += 1;
         }
     
-        agentControl.dealDamage(totalAttack);
+        agentControl.dealDamage(totalAttack, "enemy");
         
         useEnergy();
-        naBuffActive = !naBuffActive;
+        
+        if (naBuffActive){
+            naBuffDuration = 2;
+        } else {
+            naBuffActive = !naBuffActive;
+        }
     }
 }

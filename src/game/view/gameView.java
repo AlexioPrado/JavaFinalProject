@@ -6,6 +6,9 @@
  * 
  */
 
+package game.view;
+import game.model.agent;
+import game.model.enemy;
 import java.util.ArrayList;
 import java.util.Arrays;
 

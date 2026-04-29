@@ -6,8 +6,16 @@
  * 
  * 
  */
+package game.controller;
+import game.view.gameView;
+import game.model.*;
+import game.model.agentSubClass.agentAria;
+import game.model.agentSubClass.agentNangong;
+import game.model.agentSubClass.agentSunna;
+import game.model.enemySubClass.*;
+
 import java.util.*;
-import enemyFactory;
+
 
 public class gameController {
     private enemyFactory enemyCreator;
@@ -37,6 +45,11 @@ public class gameController {
             case "3":
                 combatRules();
                 break;
+            default:
+                clearTerminal();
+                view.showMessage("Input Incorrect. The world relies on your decisions. Act quickly and stop delaying.\nEnter to restart:");
+                scanner.next();
+                start();
         }
     }
 
@@ -67,6 +80,11 @@ public class gameController {
                 clearTerminal();
                 view.showCharacterKit(new agentSunna());
                 break;
+            default:
+                clearTerminal();
+                view.showMessage("Input Incorrect. Restarting agent selection. Take this serious.\nEnter to restart:");
+                scanner.next();
+                showAgentCombat();
         }
         
         view.showChoices("You read thoroughly about the agent.", new ArrayList<>(Arrays.asList("Examine another agent.", "Go back to begin exploration.")));
@@ -89,9 +107,7 @@ public class gameController {
         switch(scanner.next()){
             case "1":
                 partner1 = agentCreator.chooseCharacter(1);
-                System.out.println("got here");
                 agentList.remove("Aria");
-                System.out.println("got here 2");
                 break;
             case "2":
                 partner1 = agentCreator.chooseCharacter(2);
@@ -104,7 +120,6 @@ public class gameController {
         }
 
         teamList.add(partner1);
-        System.out.println("got here 3");
 
         clearTerminal();
         view.showChoices("Select your 2nd agent below.", agentList);
@@ -155,7 +170,6 @@ public class gameController {
     public void dealDamage(int dmg, String dmgDealtTo){
         if (dmg == -1){
             //USE TO INDICATE ENEMY ATTACK WAS BLOCKED DUE TO STUN
-            break;
         }
 
         switch(dmgDealtTo){
@@ -170,6 +184,11 @@ public class gameController {
 
     public boolean isEnemyStun(){
         //take enemy object and return isStun method. 
+        return true;
+    }
+
+    public void stunEnemy(int duration){
+
     }
 
     public static void clearTerminal() {

@@ -1,11 +1,18 @@
+
+ 
 /**
- * Marcus Alexio Prado
- * Course: Adv Java
- * Date: 4/23/26
- * Last Modified: 
+ * Marcus Alexio Prado 
+ * Course: Adv Java 
+ * Date: 4/23/26 
+ * Last Modified: 4/28/26 
  * 
- * Main begins the game and application
+ * Main begins the game and application 
  */
+
+package game;
+
+import game.view.*;
+import game.controller.*;
 
 public class Main {
     public static void main(String[] args){
