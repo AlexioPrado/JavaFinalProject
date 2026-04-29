@@ -41,12 +41,12 @@ public class gameView {
     }
 
     public void showEnemyQuickStats(enemy enemy){
-        System.out.println("Name: " + enemy.getName());
+        System.out.println(enemy.getName());
         System.out.println("HP: " + enemy.getHealth() + "/" + enemy.getMaxHealth());
     }
 
     public void showCharacterQuickStats(agent character){
-        System.out.println("Name: " + character.getName());
+        System.out.println("Active Character: " + character.getName());
         System.out.println("HP: " + character.getHealth() + "/" + character.getMaxHealth() + "    " + "Energy: " + character.getEnergy() + "/" + character.getMaxEnergy());
         //System.out.println("Buffs:");
         //for (String buffs : character.getBuffs()){
@@ -77,7 +77,7 @@ public class gameView {
         System.out.println("2. Skill: " + character.getSkillkName());
         System.out.println("3. Ultimate: " + character.getUltName());
         System.out.println("4. Switch Character");
-        System.out.println("5. Examine Agent Capabilities");
+        System.out.println("5. Examine active agent capability");
         System.out.println("6. End Game");
     }
 
@@ -99,6 +99,18 @@ public class gameView {
         System.out.println("|    Win: Survive each battle          |");
         System.out.println("|    Lose: Until your agents die from  |");
         System.out.println("|    battle.                           |");
+        System.out.println("+--------------------------------------+");
+    }
+
+    public void endGame(){
+        System.out.println("+--------------------------------------+");
+        System.out.println("| The world fell in despair.           |");
+        System.out.println("|--------------------------------------|");
+        System.out.println("| Your efforts to contain the Mii      |");
+        System.out.println("| hollow was fruitless. Your           |");
+        System.out.println("| exploration team was no match to the |");
+        System.out.println("| growing ethereal rampage. You did    |");
+        System.out.println("| your very best. Which isn\'t much.    |");
         System.out.println("+--------------------------------------+");
     }
 }

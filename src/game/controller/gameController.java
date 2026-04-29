@@ -26,6 +26,7 @@ public class gameController {
     public agent partner1;
     public agent partner2;
     public agent activeCharacter;
+    public agent offCharacter;
     public ArrayList<agent> teamList = new ArrayList<agent>();
     //private boolean running = true;
 
@@ -50,7 +51,7 @@ public class gameController {
             default:
                 clearTerminal();
                 view.showMessage("Input Incorrect. The world relies on your decisions. Act quickly and stop delaying.\nEnter to restart:");
-                scanner.next();
+                scanner.nextLine();
                 start();
         }
     }
@@ -59,8 +60,8 @@ public class gameController {
         clearTerminal();
         view.showCombatRules();
         view.showMessage("You read the combat rules of the Mii Hollow.");
-        view.showMessage("Enter 'go' to go back:");
-        scanner.next();
+        view.showMessage("Enter to go back:");
+        scanner.nextLine();
         start();
     }
 
@@ -85,7 +86,7 @@ public class gameController {
             default:
                 clearTerminal();
                 view.showMessage("Input Incorrect. Restarting agent combat examine. Take this serious.\nEnter to restart:");
-                scanner.next();
+                scanner.nextLine();
                 showAgentCombat();
         }
         
@@ -122,10 +123,32 @@ public class gameController {
         view.showMessage("Select your next action:");
 
         choice = getChoice(1, agentList.size());
-        partner2 = agentCreator.chooseCharacter(choice);
+        switch(choice){
+            case 1:
+                switch(agentList.get(0)){
+                    case "Aria":
+                        partner2 = agentCreator.chooseCharacter(1);
+                        break;
+                    case "Nangong":
+                        partner2 = agentCreator.chooseCharacter(2);
+                        break;
+                }
+                break;
+            case 2:
+                switch(agentList.get(1)){
+                    case "Nangong":
+                        partner2 = agentCreator.chooseCharacter(2);
+                        break;
+                    case "Sunna":
+                        partner2 = agentCreator.chooseCharacter(3);
+                        break;
+                }
+                break;
+        }
         teamList.add(partner2);
 
         activeCharacter = teamList.get(0);
+        offCharacter = teamList.get(1);
 
         teamConfirmation();
     }
@@ -155,10 +178,9 @@ public class gameController {
         view.showMessage("Your team encountered " + enemy.getName() + "!");
 
         while (enemy.isAlive()){
-            view.showEnemyQuickStats(enemy);
-            view.showMessage("Active Character: ");
-            view.showCharacterQuickStats(activeCharacter);
-            view.showPlayerTurn(activeCharacter);
+            playerTurn();
+            enemyTurn();
+            break;
         }
         
 
@@ -173,7 +195,55 @@ public class gameController {
     }
 
     public void playerTurn(){
+        int choice;
+        view.showMessage(" ");
+        view.showEnemyQuickStats(enemy);
+        view.showMessage(" ");
+        view.showCharacterQuickStats(activeCharacter);
+        view.showMessage(" ");
 
+        view.showPlayerTurn(activeCharacter);
+        view.showMessage("\nChoice: ");
+        choice = getChoice(1, 6);
+
+        switch (choice){
+            case 1:
+                activeCharacter.normalAttack();
+                break;
+            case 2:
+                activeCharacter.skillAttack();
+                break;
+            case 3:
+                if (activeCharacter.ultimateStatus()){
+                    activeCharacter.ultimateAttack();
+                } else {
+                    view.showMessage("\n Ultimate: " + activeCharacter.getUltName() + "is not ready.");
+                    view.showMessage("Enter to continue selecting Action: ");
+                    scanner.nextLine();
+                    playerTurn();
+                }
+                break;
+            case 4:
+                if (offCharacter.isAlive()){
+                    agent placeholder = activeCharacter;
+                    activeCharacter = offCharacter;
+                    offCharacter = placeholder;
+                } else {
+                    view.showMessage(offCharacter.getName() + "is dead. " + activeCharacter.getName() + "must fight alone.");
+                    view.showMessage("Enter to continue selecting Action: ");
+                    scanner.nextLine();
+                    playerTurn();
+                }
+                break;
+            case 5:
+                clearTerminal();
+                view.showCharacterKit(activeCharacter);
+                playerTurn();
+                break;
+            case 6:
+                endGame();
+                break;
+        }
     }
 
     public void enemyTurn(){
@@ -183,6 +253,22 @@ public class gameController {
     public enemy createEnemy(){
         int getEnemy = randomEnemy.nextInt(6) + 1;
         return enemyCreator.chooseEnemy(getEnemy);
+    }
+
+    public void endGame(){
+        int choice;
+        clearTerminal();
+        view.endGame();
+        view.showMessage(" ");
+        view.showChoices("What should you do now?", new ArrayList<String>(Arrays.asList("Restart time. Save humanity.","I don\'t give a f*ck.")));
+        choice = getChoice(1, 2);
+        switch (choice){
+            case 1:
+                start();
+                break;
+            case 2:
+                break;
+        }
     }
 
     private int getChoice(int min, int max) {
@@ -220,7 +306,9 @@ public class gameController {
                 break;
             case "enemy":
                 //DEAL DMG TO THE ENEMY
-                break;
+                view.showMessage(" ");
+                view.showMessage(activeCharacter.getName() + "dealt " + dmgDealtTo + " dmg to " + enemy.getName() + "!");
+                break; 
         }
     }
 

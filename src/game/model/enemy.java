@@ -20,7 +20,7 @@ public abstract class enemy {
     public gameController enemyControl;
 
     public boolean isAlive(){
-        return health < 0;
+        return health > 0;
     }
 
     public void takeDamage(int dmg){

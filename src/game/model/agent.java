@@ -39,14 +39,6 @@ public abstract class agent {
         }
     }
 
-    public boolean getPartnerStatus(){
-        return true;
-    }
-
-    public int getPartnerInfo(String partnerVariables) {
-        return 1;
-    }
-
     public void gainEnergy(){
         energy += 1;
         if (energy > maxEnergy){
@@ -56,6 +48,10 @@ public abstract class agent {
 
     public void useEnergy(){
         energy = 0;
+    }
+
+    public boolean ultimateStatus(){
+        return energy == maxEnergy;
     }
 
     public void takeDamage(int dmg){
