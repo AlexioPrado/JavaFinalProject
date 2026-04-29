@@ -286,17 +286,6 @@ public class gameController {
         return choice;
     }
 
-   //public agent getPartnerInfo(String name){
-   //    switch (name){
-   //        case "Aria":
-   //            return aria;
-   //        case "Nangong":
-   //            return nangong;
-   //        case "Sunna":
-   //            return sunna;
-   //    }
-   //}
-
     public void healOffCharacter(int heal){
         offCharacter.heal(heal);
     }
