@@ -135,25 +135,4 @@ public abstract class agent {
     public abstract void normalAttack();
     public abstract void skillAttack();
     public abstract void ultimateAttack();
-    
-
-    //CREATE DMG STUN INCREASE METHOD
-    //DIFFERENT FOR EVERYONE
-
-    //CREATE STUN DURATION METHOD
-    //different for nangong skill and ultimate
-
-    //stun does NOT STACK.
-
-    //CREATE HEAL METHOD
-
-    //Create atk buff method
-    // does not stack
-
-    // take damg method, same as for enemies
-
-    // check is alive, health < 0, same as for enemies.
-
-    // CREATE A BUFF METHOD TO RETURN AN ARRAYLIST OF BUFFS. an array list of strings. 
-    // However you do it, maybe buffs are an object and you get its string name or whatever
 }
