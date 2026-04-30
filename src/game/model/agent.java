@@ -76,6 +76,10 @@ public abstract class agent {
         partnerBuffMaxDuration = maxDuration;
     }
 
+    public void setHealth(int healthChange) {
+        health = healthChange;
+    }
+
     public String getName(){
         return name;
     }
