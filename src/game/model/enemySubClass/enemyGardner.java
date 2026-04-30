@@ -14,7 +14,7 @@ public class enemyGardner extends enemy {
         this.name = "Ethan Gardner";
         this.health = 25;
         this.maxHealth = 25;
-        this.attack = 4;
+        this.attack = 3;
         this.isStun = false;
         this.stunDuration = 0;
     }
