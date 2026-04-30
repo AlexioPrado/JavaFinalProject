@@ -25,7 +25,7 @@ An agent subclass called agentSunna increases the dmg of agents in their party. 
 ## Running Test Suite
 1. Download ZIP file.
 2. Unzip and open file in Eclipse.
-3. Run the test suites by right clicking each test file
+3. Run the test suites
 
 ## AI Usage
 1. code structure ideas
