@@ -50,6 +50,14 @@ public abstract class enemy {
         }
     }
 
+    public void setHealth(int healthSet){
+        health = healthSet;
+    }
+
+    public void setMaxHealth(int healthSet){
+        maxHealth = healthSet;
+    }
+
     public String getName(){
         return name;
     }
@@ -65,7 +73,11 @@ public abstract class enemy {
     public int getStunDuration(){
         return stunDuration;
     }
-    
+
+    public int getAttack(){
+        return attack;
+    }
+
     public gameController getGameController() {
     	return enemyControl;
     }
