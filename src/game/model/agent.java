@@ -128,6 +128,18 @@ public abstract class agent {
         return agentControl;
     }
 
+    public int getNADmg() {
+    	return naDmg;
+    }
+    
+    public int getSKDmg() {
+    	return skDmg;
+    }
+    
+    public int getUltDmg() {
+    	return ultDmg;
+    }
+
     public abstract String getNormalAttackInfo();
     public abstract String getSkillAttackInfo();
     public abstract String getUltimateAttackInfo();
