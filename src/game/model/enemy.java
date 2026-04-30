@@ -65,6 +65,10 @@ public abstract class enemy {
     public int getStunDuration(){
         return stunDuration;
     }
+    
+    public gameController getGameController() {
+    	return enemyControl;
+    }
 
     public abstract void enemyAttack();
 }
