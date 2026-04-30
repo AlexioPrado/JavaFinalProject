@@ -120,6 +120,10 @@ public abstract class agent {
         return partnerBuffMaxDuration;
     }
 
+    public gameController getGameController(){
+        return agentControl;
+    }
+
     public abstract String getNormalAttackInfo();
     public abstract String getSkillAttackInfo();
     public abstract String getUltimateAttackInfo();
