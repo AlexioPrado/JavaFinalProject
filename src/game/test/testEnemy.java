@@ -36,7 +36,7 @@ class testEnemy {
 	}
 	
 	@ParameterizedTest
-	@CsvSource({"5, 13", "10, 8"})
+	@CsvSource({"5, 16", "10, 11"})
 	@DisplayName("Taking damage")
 	void takingDamage(int dmg, int finalHealth) {
 		enemy.takeDamage(dmg);
@@ -44,7 +44,7 @@ class testEnemy {
 	}
 	
 	@ParameterizedTest
-	@CsvSource({"15, 2, 17","15, 7, 18"})
+	@CsvSource({"15, 2, 17","18, 7, 21"})
 	@DisplayName("Healing")
 	void healing(int health, int heal, int finalHealth) {
 		enemy.setHealth(health);
@@ -97,13 +97,13 @@ class testEnemy {
 	@Test
 	@DisplayName("Getting health")
 	void gettingHealth() {
-		assertEquals(18, enemy.getHealth(), "failed");
+		assertEquals(21, enemy.getHealth(), "failed");
 	}
 	
 	@Test
 	@DisplayName("Getting max health")
 	void gettingMaxHealth() {
-		assertEquals(18, enemy.getMaxHealth(), "failed");
+		assertEquals(21, enemy.getMaxHealth(), "failed");
 	}
 	
 	@Test

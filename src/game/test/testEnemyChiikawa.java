@@ -26,7 +26,7 @@ class testEnemyChiikawa {
 	@Test
 	@DisplayName("Basic Attack: False attackSwitch")
 	void basicAttackFalse() {
-		chiikawa.enemyAttack(); // + 4
+		chiikawa.enemyAttack(); // + 6
 		int dmg = control.activeCharacter.getMaxHealth() - control.activeCharacter.getHealth();
 		assertEquals(dmg, chiikawa.getAttack(), "failed");
 	}
@@ -34,10 +34,10 @@ class testEnemyChiikawa {
 	@Test
 	@DisplayName("Basic Attack: True attackSwitch")
 	void basicAttackTrue() {
-		chiikawa.enemyAttack(); // + 4
-		chiikawa.enemyAttack(); // + 5
+		chiikawa.enemyAttack(); // + 6
+		chiikawa.enemyAttack(); // + 7
 		int dmg = control.activeCharacter.getMaxHealth() - control.activeCharacter.getHealth();
-		assertEquals(dmg, 9, "failed");
+		assertEquals(dmg, 13, "failed");
 	}
 	
 	@Test
@@ -53,8 +53,8 @@ class testEnemyChiikawa {
 	@DisplayName("Basic Attack: After Stunned")
 	void basicAttackAfterStunned() {
 		control.stunEnemy(1);
-		chiikawa.enemyAttack(); // +3
-		chiikawa.enemyAttack(); // +4
+		chiikawa.enemyAttack(); // +6
+		chiikawa.enemyAttack(); // +7
 		int dmg = control.activeCharacter.getMaxHealth() - control.activeCharacter.getHealth();
 		assertEquals(dmg, chiikawa.getAttack(), "failed");
 	}
