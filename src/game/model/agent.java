@@ -191,7 +191,7 @@ public abstract class agent {
      * 
      * @return skill attack name
      */
-    public String getSkillkName(){
+    public String getSkillName(){
         return skName;
     }
 

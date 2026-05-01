@@ -51,7 +51,7 @@ public class agentSunna extends agent{
      */
     @Override
     public String getSkillAttackInfo(){
-        String skInfo = "Sunna calls her bubblegum assistant,\n| dealing 3 dmg. Bubblegum increases\n| the exploration team attack dmg by 3\nfor 4 turns.";
+        String skInfo = "Sunna calls her bubblegum assistant,\n| dealing 3 dmg. Bubblegum increases\n| the exploration team attack dmg by 3\n| for 4 turns.";
         return skInfo;
     }
     

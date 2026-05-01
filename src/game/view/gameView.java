@@ -57,13 +57,13 @@ public class gameView {
         System.out.println("+--------------------------------------");
         System.out.println("| Name: " + character.getName());
         System.out.println("|--------------------------------------");
-        System.out.println("| Normal Attack:                       ");
+        System.out.println("| Normal Attack: " + character.getNormalAttackName());
         System.out.println("| " + character.getNormalAttackInfo());
         System.out.println("|--------------------------------------");
-        System.out.println("| Skill:                               ");
+        System.out.println("| Skill: " + character.getSkillName());
         System.out.println("| " + character.getSkillAttackInfo());
         System.out.println("|--------------------------------------");
-        System.out.println("| Ultimate:                            ");
+        System.out.println("| Ultimate: " + character.getUltName());
         System.out.println("| " + character.getUltimateAttackInfo());
         System.out.println("+--------------------------------------");
     }
@@ -121,7 +121,7 @@ public class gameView {
     public void showPlayerTurn(agent character){
         showMessage("Select your next Action:");
         System.out.println("1. Normal Attack: " + character.getNormalAttackName());
-        System.out.println("2. Skill: " + character.getSkillkName());
+        System.out.println("2. Skill: " + character.getSkillName());
         System.out.println("3. Ultimate: " + character.getUltName());
         System.out.println("4. Switch Character");
         System.out.println("5. Examine active agent capability");

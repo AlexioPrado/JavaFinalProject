@@ -568,7 +568,7 @@ public class gameController {
             view.showMessage(offCharacter.getName() + " switched with " + activeCharacter.getName());
         } else {
             //Output message that the offCharacter is dead
-            view.showMessage(offCharacter.getName() + "is dead. " + activeCharacter.getName() + "must fight alone.");
+            view.showMessage(offCharacter.getName() + " is dead. " + activeCharacter.getName() + " must fight alone.");
             //Call playerTurn because the switch action became invalid, asks for player's action again
             playerTurn();
         }

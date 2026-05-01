@@ -58,7 +58,7 @@ public class agentAria extends agent{
      */
     @Override
     public String getSkillAttackInfo(){
-        String skInfo = "Aria kicks the enemy swiftly, dealing\n| 4 dmg. Aria\\'s partner, astonished\n| by her skills, will gain\n| 1 energy.";
+        String skInfo = "Aria kicks the enemy swiftly, dealing\n| 4 dmg. Aria\'s partner, astonished\n| by her skills, will gain\n| 1 energy.";
         return skInfo;
     }
     

@@ -153,7 +153,7 @@ class testAgent {
 	@Test
 	@DisplayName("Getting skill attack name")
 	void getttingSKName() {
-		assertEquals("Fall Into Delusion", agent.getSkillkName(), "failed");
+		assertEquals("Fall Into Delusion", agent.getSkillName(), "failed");
 	}
 	
 	@Test
