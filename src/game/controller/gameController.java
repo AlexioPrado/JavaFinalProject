@@ -13,7 +13,6 @@ import game.model.*;
 import game.model.agentSubClass.agentAria;
 import game.model.agentSubClass.agentNangong;
 import game.model.agentSubClass.agentSunna;
-import game.model.enemySubClass.*;
 import java.util.*;
 
 /**
@@ -60,7 +59,7 @@ public class gameController {
     public void start(){
         int choice = -1;
         resetGame();
-        clearTerminal();
+        view.clearTerminal();
 
         //Output menu and choices to continue game
         view.showMenu();
@@ -85,14 +84,14 @@ public class gameController {
      * Gives instruction to go back to menu.
      */
     public void combatRules(){
-        int choice = -1;
-        clearTerminal();
+
+        view.clearTerminal();
 
         //Output combat rules and instruction to go back to menu
         view.showCombatRules();
         view.showMessage("You read the combat rules of the Mii Hollow.");
         view.showMessage("Enter \"1\" to go back:");
-        choice = getChoice(1, 1);
+        getChoice(1, 1);
 
         //Call start method
         start();
@@ -105,7 +104,7 @@ public class gameController {
     public void showAgentCombat(){
         int choice = -1;
 
-        clearTerminal();
+        view.clearTerminal();
 
         //Output options to select agent of interest
         view.showChoices("Select agent to examine:", new ArrayList<>(Arrays.asList("Aria", "Nangong", "Sunna")));
@@ -115,15 +114,15 @@ public class gameController {
         choice = getChoice(1, 3);
         switch (choice) {
             case 1:
-                clearTerminal();
+                view.clearTerminal();
                 view.showCharacterKit(new agentAria());
                 break;
             case 2:
-                clearTerminal();
+                view.clearTerminal();
                 view.showCharacterKit(new agentNangong());
                 break;
             case 3:
-                clearTerminal();
+                view.clearTerminal();
                 view.showCharacterKit(new agentSunna());
                 break;
         }
@@ -153,7 +152,7 @@ public class gameController {
         int choice;
         ArrayList<String> agentList = new ArrayList<>(List.of("Aria","Nangong","Sunna"));
 
-        clearTerminal();
+        view.clearTerminal();
 
         //Show options to select first agent
         view.showChoices("It\'s time to recruit your agents.\nSelect your 1st agent below.", agentList);
@@ -170,7 +169,7 @@ public class gameController {
         agentList.remove(agentList.get(choice - 1));
         teamList.add(partner1);
 
-        clearTerminal();
+        view.clearTerminal();
 
         //Show chosen 1st agent and options to select second agent
         view.showMessage("Selected Agents: " + teamList.get(0).getName());
@@ -221,7 +220,7 @@ public class gameController {
      */
     public void teamConfirmation(){
         int choice;
-        clearTerminal();
+        view.clearTerminal();
 
         //Output selected team and the active character
         view.showMessage("Selected team: " + teamList.get(0).getName() + " | " + teamList.get(1).getName());
@@ -248,8 +247,7 @@ public class gameController {
      * Creates layout for fighting enemies
      */
     public void game(){
-        int choice = -1;
-        clearTerminal();
+        view.clearTerminal();
 
         //Set turn to 1
         turnCounter = 1;
@@ -293,7 +291,7 @@ public class gameController {
         
         //Instruction to continue to next battle
         view.showMessage("Continue exploring the Mii hollow. \nEnter \"1\" to continue:");
-        choice = getChoice(1, 1);
+        getChoice(1, 1);
 
         //Increase battle counter
         battleCounter++;
@@ -325,7 +323,7 @@ public class gameController {
         view.showMessage("\nChoice: ");
         choice = getChoice(1, 6);
 
-        clearTerminal();
+        view.clearTerminal();
 
         /**
          * Use user input to decide action
@@ -360,7 +358,7 @@ public class gameController {
                 switchCharacter();
                 break;
             case 5:
-                clearTerminal();
+                view.clearTerminal();
 
                 //Output agent abilties
                 view.showCharacterKit(activeCharacter);
@@ -403,7 +401,7 @@ public class gameController {
      */
     public void endGame(){
         int choice;
-        clearTerminal();
+        view.clearTerminal();
 
         //Outtput inormation of the ending
         view.endGame();
@@ -637,22 +635,4 @@ public class gameController {
         offCharacter = null;
         teamList.clear();
     }   
-
-    /**
-     * Method to clear the terminal. Aesthetic purpose
-     * 
-     * NOTE: 
-     */
-    public static void clearTerminal() {
-        System.out.print("\033[H\033[2J");
-        //try {
-        //    if (System.getProperty("os.name").contains("Windows")) {
-        //        new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
-        //    } else {
-        //        new ProcessBuilder("clear").inheritIO().start().waitFor();
-        //    }
-        //} catch (Exception e) {
-        //    e.printStackTrace();
-        //}
-    }
 }

@@ -25,6 +25,10 @@ public class gameView {
         }
     }
 
+    public void clearTerminal() {
+        System.out.print("\033[H\033[2J");
+    }
+
     public void showCharacterKit(agent character){
         System.out.println("+--------------------------------------");
         System.out.println("| Name: " + character.getName());

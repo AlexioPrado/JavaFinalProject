@@ -8,7 +8,6 @@
 
 package game.model;
 import game.controller.gameController;
-import game.view.gameView;
 
 public abstract class enemy {
     public String name;
