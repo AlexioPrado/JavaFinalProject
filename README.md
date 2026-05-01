@@ -3,8 +3,10 @@ You are tasked to create a team of two and explore the Mii hollow that has ravag
 
 ## How To Run
 1. Download ZIP file and unzip
-2. Place into your IDE. Preferrably VScode and Github codespaces.
-3. Right click Main.java, found in game folder, click run java file
+2. Place into your IDE. Preferrable Github codespace
+3. Download Extensions for Java
+4. Right click Main.java, found in game folder, click run java file
+5. If asked to use standard mode in a popup on the bottom right, allow and wait untill application runs
 
 ## MVC Structure
 ### Model
@@ -29,5 +31,6 @@ I do not unfortunately have the right set up to run test suite anywhere except E
 I used AI in the process of creating ideas in the use of the MVC structure as well as solving bugs. No code was created by AI.
 
 ## Known Issues & Limitations
+![alt text](image.png)
 1. Aesthetics of Application: When running the application under Github Codespace(Most likley VSCode too), the command to run the game covers some of the text. Right click the command to disable sticky scroll. 
 
