@@ -1,4 +1,4 @@
-# Hollow Exploration Unit 1
+# Hollow Exploration
 You are tasked to create a team of two and explore the Mii hollow that has ravaged the new district. Fight against enemies in a turn based game and survive for as long as you can.
 
 ## How To Run
