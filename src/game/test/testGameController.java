@@ -47,12 +47,4 @@ class testGameController {
 		control.dealDamage(30, "agent");
 		assertEquals(false, activeChar.isAlive(), "failed");
 	}
-
-	//@Test
-	//@DisplayName("Switch Character. OffCharacter dead")
-	//void switchAgentDead() {
-	//	offChar.setHealth(0);
-	//	control.switchCharacter();
-	//	assertEquals(activeChar, control.activeCharacter, "failed");
-	//}
 }
