@@ -303,7 +303,7 @@ public class gameController {
     }
 
     /**
-     * Main method for getting user input to decide the player's action.
+     * Main method for getting user input to decide the player's action in a fight.
      */
     public void playerTurn(){
         int choice;
@@ -388,17 +388,31 @@ public class gameController {
         enemy.enemyAttack();
     }
 
+    /**
+     * Creates an enemy using a random integer and through the enemyFactory,
+     * create an enemy with that corresponding integer
+     */
     public enemy createEnemy(){
         int getEnemy = randomEnemy.nextInt(6) + 1;
         return enemyCreator.chooseEnemy(getEnemy);
     }
 
+    /**
+     * Endgame method to output the story ending and give
+     * options to the user on their next steps
+     */
     public void endGame(){
         int choice;
         clearTerminal();
+
+        //Outtput inormation of the ending
         view.endGame();
         view.showMessage(" ");
+
+        //Give users an option to play again or stop
         view.showChoices("What should you do now?", new ArrayList<String>(Arrays.asList("Restart time. Save humanity.","I don\'t gaf.")));
+        
+        //Get user input, run the neccesary methods or end the game
         choice = getChoice(1, 2);
         switch (choice){
             case 1:
@@ -410,13 +424,36 @@ public class gameController {
         }
     }
 
+    /**
+     * Get choice methods makes obtaining user information easier
+     * and evaluate input validation at one place. It re
+     * 
+     * @param min The lowest value of options. Basically always 1
+     * @param max The highest value of options. If there is 3 options, 3 is the max
+     */
     private int getChoice(int min, int max) {
         int choice = -1;
+
+        /**
+         * While the choice is greater than the max or less than max,
+         * continue asking for user input
+         */
         while (choice < min || choice > max) {
+            //Take user input that is an integer
             if (scanner.hasNextInt()) {
+                //set it as the choice
                 choice = scanner.nextInt();
             } else {
+                //Take user input that is not an integer
                 scanner.next();
+
+                /**
+                 * This handles user input for instances with multiple choices 
+                 * and user input that only needs one. In the cases of one input,
+                 * its instructions to continue.
+                 * 
+                 * If statements asks if there is more than one option, greater than 0
+                 */
                 if (max - min > 0){
                     view.showMessage("Invalid input. Please enter a number between " + min + " and " + max + ".");
                 } else {
@@ -424,47 +461,89 @@ public class gameController {
                 }
             }
         }
+
+        //Return correctly inputed chocie by user
         return choice;
     }
 
+    /**
+     * Used by the active character to heal their other exploration member
+     * 
+     * @param heal The amount of healing given to the offcharacter
+    */
     public void healOffCharacter(int heal){
         offCharacter.heal(heal);
     }
 
+    /**
+     * Used by the active character to buff their other exploration member
+     */
     public void applyPartnerBuff(){
+        /**
+         * Creates variables based on the active character stats
+         *
+         * Buff = the amount of dmg increase
+         * duration = counter for how long buff lasts
+         * maxDuration = how long it should last. To not overcap the duration of buff
+         */
         int buff = activeCharacter.getPartnerBuffDmg();
         int duration = activeCharacter.getPartnerBuffDuration();
         int maxDuration = activeCharacter.getPartnerBuffMaxDuration();
 
+        //Apply it to the offCharater
         offCharacter.setPartnerBuffDmg(buff);
         offCharacter.setPartnerBuffDuration(duration-1);
         offCharacter.setPartnerBuffMaxDuration(maxDuration-1);
     }
 
+    /**
+     * Used by active character to increase
+     * energy of the other exploration member
+     */
     public void partnerEnergyIncrease(){
         offCharacter.gainEnergy();
     }
 
+    /**
+     * Method for both agents and enemies to deal dmg to the other
+     * 
+     * @param dmg amount of damage
+     * @param dmgDealtTo who is it being damaged to
+     */
     public void dealDamage(int dmg, String dmgDealtTo){
         view.showMessage(" ");
 
+        // Determine who is getting damaged
         switch(dmgDealtTo){
             case "agent":
+                //Output enemy's action
                 view.showMessage("Enemy action: ");
+
+                //Inside the enemy object, dmg is set to -1 if they are stunned
                 if (dmg == -1){
+                    //Output stunned message
                     view.showMessage(enemy.getName() + " tried to deal dmg but is stunned!");
                 } else {
+                    //Output the damage dealt to what agent
                     view.showMessage(enemy.getName() + " dealt " + dmg + " dmg to " + activeCharacter.getName() + "!");
+                    //Update activeCharacter's health
                     activeCharacter.takeDamage(dmg);
+
+                    //Check if the activeCharacter is still alive from the dmg
                     if (!activeCharacter.isAlive()){
                         agentDeath();
                     }
                 }
                 break;
             case "enemy":
+                //Output player's action
                 view.showMessage("Player action:");
+                //Output the damage dealt to the enemy
                 view.showMessage(activeCharacter.getName() + " dealt " + dmg + " dmg to " + enemy.getName() + "!");
+                //Update enemy's health
                 enemy.takeDamage(dmg);
+
+                //Check if the enemy is still alive from the dmg
                 if (!enemy.isAlive()){
                     enemyDeath();
                 }
@@ -472,44 +551,83 @@ public class gameController {
         }
     }
 
+    /**
+     * Method for switching out the active and off character
+     * Also checks if the offcharacter is dead.
+     */
     public void switchCharacter(){
+        //Ouptut player's action
         view.showMessage("Player action: ");
+
+        //Checks if offcharacter is alive
         if (offCharacter.isAlive()){
+            //Create placeholder for activeCharacter
             agent placeholder = activeCharacter;
+            //Switch the agents
             activeCharacter = offCharacter;
             offCharacter = placeholder;
+            //Output message of the switch
             view.showMessage(offCharacter.getName() + " switched with " + activeCharacter.getName());
         } else {
+            //Output message that the offCharacter is dead
             view.showMessage(offCharacter.getName() + "is dead. " + activeCharacter.getName() + "must fight alone.");
-            scanner.nextLine();
+            //Call playerTurn because the switch action became invalid, asks for player's action again
             playerTurn();
         }
     }
 
+    /**
+     * Method to output message of the death of an enemy
+     */
     public void enemyDeath(){
+        //Ouput message of dead enemy by what character
         view.showMessage(enemy.getName() + " died by " + activeCharacter.getName() + "\'s attack!");
     }
 
+    /**
+     * Method to output message of the death of the active character
+     * and evaluate next steps in the case of both agents dead
+     */
     public void agentDeath(){
+        //Output message of dead enemy
         view.showMessage(activeCharacter.getName() + " died by " + enemy.getName() + "\'s attack!");
+        //Output message of active character and off character switching places
         view.showMessage(offCharacter.getName() + " switched with " + activeCharacter.getName());
+        //Check if both characters are still alive
         if (!activeCharacter.isAlive() && !offCharacter.isAlive()){
             endGame();
             return;
         }
+
+        //Handling of switching character. Create a placeholder then switch
         agent placeholder = activeCharacter;
         activeCharacter = offCharacter;
         offCharacter = placeholder;
     }
 
+    /**
+     * Used by agents to check the enemy if they are stunned
+     * If stunned, it increases dmg of agents
+     * 
+     * @return true/false if the enemy is stunned
+     */
     public boolean isEnemyStun(){
         return enemy.isStun();
     }
 
+    /**
+     * Used by agents to stun the enemy. 
+     * 
+     * @param duration how long the stun lasts for
+     */
     public void stunEnemy(int duration){
         enemy.setStun(duration);
     }
 
+    /**
+     * Method to reset the game once the game was lost. 
+     * Each variable will be reset to its former value
+     */
     public void resetGame(){
         running = true;
         enemy = null;
@@ -518,17 +636,23 @@ public class gameController {
         activeCharacter = null;
         offCharacter = null;
         teamList.clear();
-}   
+    }   
 
+    /**
+     * Method to clear the terminal. Aesthetic purpose
+     * 
+     * NOTE: 
+     */
     public static void clearTerminal() {
-        try {
-            if (System.getProperty("os.name").contains("Windows")) {
-                new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
-            } else {
-                new ProcessBuilder("clear").inheritIO().start().waitFor();
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        System.out.print("\033[H\033[2J");
+        //try {
+        //    if (System.getProperty("os.name").contains("Windows")) {
+        //        new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
+        //    } else {
+        //        new ProcessBuilder("clear").inheritIO().start().waitFor();
+        //    }
+        //} catch (Exception e) {
+        //    e.printStackTrace();
+        //}
     }
 }
